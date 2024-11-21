@@ -1,4 +1,4 @@
-import AppData from "./appData";
+
 
 const workspaces = [
   {
