@@ -1,0 +1,28 @@
+.addButton {
+  user-select: none;
+  transition: background 20ms ease-in;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: rgba(55, 53, 47, 0.35);
+  position: absolute;
+  top: 3px;
+  left: -44px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  pointer-events: auto;
+}
+
+.addButton:hover {
+  background: rgba(55, 53, 47, 0.08);
+}
+
+.icon {
+  width: 16px;
+  height: 100%;
+  display: block;
+  fill: inherit;
+  flex-shrink: 0;
+}

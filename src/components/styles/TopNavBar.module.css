@@ -1,0 +1,27 @@
+.topNavBar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.navIcons,
+.actionIcons {
+  display: flex;
+  gap: 10px;
+}
+
+.navIcon,
+.actionIcon {
+  cursor: pointer;
+  color: #6b6b6b;
+  font-size: 18px;
+}
+
+.currentPath {
+  font-size: 16px;
+  color: #333;
+}

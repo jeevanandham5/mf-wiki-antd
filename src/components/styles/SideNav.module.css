@@ -1,0 +1,194 @@
+:root {
+  --nav-width: 300px;
+}
+.sideNavWrapper {
+  width: 300px;
+  border-right: 1px solid #e0e0e0;
+  font-size: 16px;
+}
+nav.css-mr80x {
+  width: 400px;
+  background-color: #f4f5f7;
+  height: 100%;
+  font-size: 16px;
+}
+nav.css-nqshte {
+  scrollbar-width: none;
+}
+div.css-5mhfd2 {
+  padding: 10px;
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  font-size: 16px;
+}
+div.css-q334zl {
+  overflow: hidden;
+  width: 400px;
+  height: 100%;
+  font-size: 16px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+div.css-q334zl::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+div.css-q334zl:hover {
+  background-color: transparent;
+}
+div.css-1dg238f {
+  height: 100%;
+  font-size: 16px;
+}
+div.css-17nf42q {
+  background-color: rgba(128, 128, 128, 0.165);
+  border: none;
+  font-size: 16px;
+}
+button.css-1kgpe0a:hover {
+  background-color: white;
+}
+.sideNavigation {
+  color: white;
+  height: 100%;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.navigationHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.titleBar {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.titleText {
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+button.css-1qz0cxr {
+  background-color: transparent;
+  width: 250px;
+}
+.dropdownTriggerWrapper {
+  background-color: transparent;
+}
+.titleIcons {
+  display: flex;
+  gap: 10px;
+}
+.dropdownItemGroup {
+  width: 100%;
+  align-items: left;
+  font-size: 16px;
+}
+
+.dropdownItem {
+  width: 100%;
+  font-size: 16px;
+  text-align: left;
+}
+.searchContainer {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+}
+.searchButton {
+  border: none;
+  background: #b0b0b0;
+  padding: 0;
+}
+.searchInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #b0b0b0; /* Placeholder color */
+  font-size: 16px;
+  width: 100%;
+  border-bottom: 1px solid #b0b0b0;
+}
+
+.searchInput::placeholder {
+  color: #b0b0b0; /* Placeholder color */
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.searchInputIcon {
+  margin-right: 10px;
+  color: #b0b0b0; /* Icon color */
+}
+
+.buttonItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  color: inherit;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.buttonItem:hover {
+  background-color: #0052cc; /* Darker blue on hover */
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.textField {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 16px;
+}
+
+.subSection {
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white; /* or whatever your background color is */
+  z-index: 100;
+  padding: 16px;
+}
+
+.scrollableContent {
+  position: absolute;
+  top: 200px; /* Adjust this value based on your header height */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  padding: 16px;
+}
