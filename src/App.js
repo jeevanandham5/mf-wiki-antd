@@ -8,7 +8,7 @@ import NovelEditor from "./components/NovelEditor";
 import Editor from "./components/Editor";
 /* to work with host and local navigation correctly we changed the router to (HashRouter) and u can see this in the import of react-router-dom */
 function App() {
-  cosole.log("hello world");
+  console.log("hello world");
   return (
     <div className={styles.App}>
       <Router>
