@@ -1,0 +1,76 @@
+.toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.buttonGroup {
+  display: flex;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Button base styles */
+sl-button::part(base) {
+  height: 40px !important;
+  min-width: 40px !important;
+  padding: 0 12px !important;
+  background-color: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  color: #4b5563 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+}
+
+/* Group button styles */
+.buttonGroup sl-button::part(base) {
+  border: none !important;
+  border-radius: 0 !important;
+  min-width: 40px !important;
+}
+
+/* Test Operations button */
+.testOpsButton::part(base) {
+  padding: 0 16px !important;
+  min-width: 140px !important;
+  justify-content: space-between !important;
+}
+
+/* SVG icon styles */
+svg {
+  display: block;
+  color: #4b5563;
+}
+
+.caret {
+  margin-left: 4px;
+}
+
+/* Hover state */
+sl-button::part(base):hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Focus state */
+sl-button::part(base):focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Tooltip styles */
+sl-tooltip::part(base) {
+  --sl-tooltip-arrow-size: 6px;
+  --sl-tooltip-background-color: #1f2937;
+  --sl-tooltip-color: #ffffff;
+  font-size: 12px;
+  padding: 4px 8px;
+}

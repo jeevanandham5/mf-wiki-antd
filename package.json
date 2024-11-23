@@ -12,6 +12,7 @@
     "@atlaskit/textfield": "^6.5.4",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@shoelace-style/shoelace": "^2.18.0",
     "@tiptap/extension-image": "^2.10.1",
     "@tiptap/extension-link": "^2.10.1",
     "@tiptap/extension-placeholder": "^2.10.1",
