@@ -22,7 +22,7 @@ const App = () => {
       <Router>
         <div className={styles.Container}>
           <div className={styles.contentWrapper}>
-            {/*<SideNav />*/}
+            <SideNav />
             <Routes>
               <Route path="/" element={<MainContent />} />
               <Route path="/:section" element={<MainContent />} />

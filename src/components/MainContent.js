@@ -5,7 +5,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { NavDatatop, NavdataBottom } from "./navdata";
 
 import { IoIosAdd } from "react-icons/io";
-import Modal from "react-modal";
+import { Modal } from "antd";
 import Block from "./Block";
 import {
   UndoOutlined,
@@ -21,8 +21,6 @@ import {
 } from "@ant-design/icons";
 import { ConfigProvider, theme } from "antd";
 import EdgelessToolbar from "./EdgelessToolbar";
-
-Modal.setAppElement("#root");
 
 const customModalStyles = {
   content: {
@@ -47,25 +45,19 @@ const customModalStyles = {
 const AddContentModal = ({ isOpen, onClose, position }) => {
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      style={customModalStyles}
-      contentLabel="Add Content Modal"
-      closeTimeoutMS={300}
+      visible={isOpen}
+      onCancel={onClose}
+      title="Add Content"
+      footer={null}
+      centered
+      width="50%"
+      bodyStyle={{ padding: "20px", height: "70%", overflowY: "auto" }}
     >
-      <div className={styles.modalContent}>
-        <div className={styles.modalHeader}>
-          <h2>Add Content</h2>
-          <button onClick={onClose} className={styles.closeButton}>
-            ×
-          </button>
-        </div>
-        <div className={styles.modalBody}>
-          <div className={styles.contentOptions}>
-            <button className={styles.optionButton}>Add Text</button>
-            <button className={styles.optionButton}>Add Image</button>
-            <button className={styles.optionButton}>Add Video</button>
-          </div>
+      <div className={styles.modalBody}>
+        <div className={styles.contentOptions}>
+          <button className={styles.optionButton}>Add Text</button>
+          <button className={styles.optionButton}>Add Image</button>
+          <button className={styles.optionButton}>Add Video</button>
         </div>
       </div>
     </Modal>
@@ -196,6 +188,63 @@ const MainContent = () => {
         content: `This is the content for the ${title} ${
           subsection ? "subsection" : "section"
         }.`,
+      },
+      {
+        id: "code-block",
+        content: (
+          <pre>
+            <code>
+              <div>
+                <h2>Welcome to InnovateTech</h2>
+                <p>
+                  At InnovateTech, we are revolutionizing the way businesses
+                  leverage technology to drive growth and efficiency. Our
+                  mission is to empower companies with cutting-edge solutions
+                  that streamline operations and enhance productivity.
+                </p>
+                <p>
+                  Join us on our journey to innovate and transform the digital
+                  landscape. Whether you're a startup looking to scale or an
+                  established enterprise seeking to optimize, InnovateTech is
+                  your partner in success.
+                </p>
+                <button onClick={() => console.log("Learn More clicked")}>
+                  Learn More
+                </button>
+              </div>
+            </code>
+          </pre>
+        ),
+      },
+      {
+        id: "task-list",
+        content: (
+          <>
+            <h3>Tasks To Do</h3>
+            <ul>
+              <li>
+                <input type="checkbox" id="task1" />
+                <label htmlFor="task1">Review project requirements</label>
+              </li>
+              <li>
+                <input type="checkbox" id="task2" />
+                <label htmlFor="task2">Design the user interface</label>
+              </li>
+              <li>
+                <input type="checkbox" id="task3" />
+                <label htmlFor="task3">Implement authentication</label>
+              </li>
+              <li>
+                <input type="checkbox" id="task4" />
+                <label htmlFor="task4">Test application functionality</label>
+              </li>
+              <li>
+                <input type="checkbox" id="task5" />
+                <label htmlFor="task5">Deploy to production</label>
+              </li>
+            </ul>
+          </>
+        ),
       },
     ]);
   }, [section, subsection, location.pathname]);

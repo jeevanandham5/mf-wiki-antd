@@ -62,16 +62,17 @@
 
 .mainContainer {
   width: 100%;
+  height: 100%;
   color: black;
   padding: 3rem 2rem 2rem;
 }
 
 @media (min-width: 640px) {
   .mainContainer {
+    height: 100%;
     margin-bottom: calc(20vh);
     border-radius: 0.5rem;
-    border: 1px solid var(--muted-color);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
     padding: 1.5rem;
   }
 
@@ -175,6 +176,7 @@
     }
 
     .mainContainer {
+      height: 100%;
       padding: 3rem 1.5rem 1.5rem;
     }
   }
@@ -996,4 +998,39 @@ sl-tooltip::part(base) {
 /* Remove hover color changes for icons */
 .debugToolbar .toolbarButton:hover svg {
   fill: inherit; /* Ensure hover does not change icon color */
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.contentOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.optionButton {
+  background-color: #1890ff; /* Primary color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.optionButton:hover {
+  background-color: #40a9ff; /* Hover color */
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
 }
