@@ -1,0 +1,86 @@
+.edgelessToolbar {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  gap: 4px;
+}
+
+/* Position the edgeless toolbar */
+.edgelessToolbar {
+  position: absolute;
+  top: 50px;
+  left: 20%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.edgelessToolbarContainer {
+  position: absolute;
+  top: 100%; /* Position it right below debugToolbar */
+  left: 130px;
+  width: 100%;
+  z-index: 1;
+  background-color: inherit; /* Match parent background */
+  border-top: 1px solid #e8e8e8; /* Optional: adds separation line */
+  padding: 8px;
+}
+
+.toolButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #4a4a4a;
+  transition: all 0.2s ease;
+}
+
+.toolButton:hover {
+  background-color: #f5f5f5;
+}
+
+.toolButton.active {
+  background-color: #e6f4ff;
+  color: #1890ff;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #e8e8e8;
+  margin: 0 4px;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .edgelessToolbar {
+  background: #1f1f1f;
+}
+
+[data-theme="dark"] .toolButton {
+  color: #d9d9d9;
+}
+
+[data-theme="dark"] .toolButton:hover {
+  background-color: #303030;
+}
+
+[data-theme="dark"] .toolButton.active {
+  background-color: #111b26;
+  color: #1890ff;
+}
+
+[data-theme="dark"] .divider {
+  background-color: #303030;
+}
+
+.selected {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}

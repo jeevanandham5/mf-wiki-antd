@@ -1,3 +1,11 @@
+.appContainer {
+  width: 100%;
+  height: 100%;
+  margin-left: 2rem;
+  background-color: var(--ant-background-color);
+  color: var(--ant-text-color);
+}
+
 .toolbar {
   display: flex;
   gap: 8px;
@@ -6,29 +14,129 @@
   border-radius: 8px;
   align-items: center;
 }
+.tooltip {
+  width: 30px;
+  height: 30px;
+}
+/* Style for the button group */
+sl-button-group {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  align-items: center; /* Center the buttons vertically */
+}
 
+/* Tooltip styles */
+sl-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Styling for the buttons */
+sl-button {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  color: #333;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+sl-button:hover:not([disabled]) {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+sl-button:active:not([disabled]) {
+  background-color: #d1d1d1;
+  transform: translateY(1px);
+}
+
+/* Disabled button style */
+sl-button[disabled] {
+  background-color: #f1f1f1;
+  border-color: #e0e0e0;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Adjusting the spacing between the icon and the button */
+sl-button sl-icon {
+  margin-right: 8px;
+  vertical-align: -2px;
+}
+
+/* Styling for tooltips */
+sl-tooltip::part(base) {
+  color: #fff;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+sl-tooltip[placement="bottom"]::part(base) {
+  margin-top: 8px;
+}
+/* Ensure the icon is visible by setting a size */
+sl-icon {
+  width: 20px; /* Set width */
+  height: 20px; /* Set height */
+  display: inline-block; /* Make sure the icon is displayed */
+  vertical-align: -2px;
+}
+
+/* Optional: If you want the icon to scale along with the button size */
+sl-button {
+  display: flex;
+  align-items: center; /* Vertically center the icon and text */
+  justify-content: center;
+}
+
+/* Optional: Adjust the icon size for small buttons */
+sl-button[size="small"] sl-icon {
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  color: red;
+}
+/* Initially hide all submenus */
+.sl-menu[slot="submenu"] {
+  display: none;
+}
+
+/* Show submenu when its parent menu item is active */
+.sl-menu-item.active > .sl-menu[slot="submenu"] {
+  display: block;
+}
 .buttonGroup {
   display: flex;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   overflow: hidden;
 }
-
+sl-tooltip::part(base) {
+  height: 80px !important;
+  overflow: visible !important;
+}
 /* Button base styles */
 sl-button::part(base) {
-  height: 40px !important;
+  width: 60px !important;
+  height: 60px !important;
   min-width: 40px !important;
-  padding: 0 12px !important;
+  padding: 0 6px !important;
   background-color: white !important;
   border: 1px solid #e2e8f0 !important;
   border-radius: 6px !important;
-  color: #4b5563 !important;
+  color: red !important;
   font-size: 14px !important;
   font-weight: 400 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 4px !important;
+  overflow: visible !important;
 }
 
 /* Group button styles */
@@ -73,4 +181,325 @@ sl-tooltip::part(base) {
   --sl-tooltip-color: #ffffff;
   font-size: 12px;
   padding: 4px 8px;
+  overflow: visible !important;
+  z-index: 1001;
+}
+
+.debugMenu {
+  display: flex;
+  flex-wrap: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: auto;
+  z-index: 1000; /* for debug visibility */
+  pointer-events: none;
+}
+
+@media print {
+  .debugMenu {
+    display: none;
+  }
+}
+
+.defaultToolbar {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  width: 100%;
+  min-width: 390px;
+  overflow: visible;
+}
+
+.defaultToolbar > * {
+  pointer-events: auto;
+}
+
+.edgelessToolbar {
+  align-items: center;
+  margin-right: 17px;
+  pointer-events: auto;
+}
+
+.edgelessToolbar sl-select,
+.edgelessToolbar sl-color-picker,
+.edgelessToolbar sl-button {
+  margin-right: 4px;
+}
+
+.container {
+  position: relative;
+}
+
+.testOperation {
+  position: relative;
+  display: inline-block;
+}
+
+.menuItems {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  padding: 4px 0;
+  background-color: var(--ant-component-background);
+  border-color: var(--ant-border-color-split);
+  color: var(--ant-text-color);
+  box-shadow: var(--ant-box-shadow);
+}
+
+.menuItemWrapper {
+  position: relative;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+  font-size: 14px;
+  white-space: nowrap;
+  color: var(--ant-text-color);
+}
+
+.menuItem:hover {
+  background-color: #f5f5f5;
+  background-color: var(--ant-background-color-secondary);
+}
+
+.submenuArrow {
+  font-size: 12px;
+  color: #666;
+  transform: rotate(-90deg);
+  margin-left: 8px;
+}
+
+.submenu {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  min-width: 200px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: none;
+  background-color: var(--ant-component-background);
+  border-color: var(--ant-border-color-split);
+}
+
+.menuItemWrapper:hover .submenu {
+  display: block;
+}
+
+/* Optional: Add transition effects */
+.menuItems,
+.submenu {
+  animation: fadeIn 0.1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.debugToolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background-color: var(--ant-component-background);
+  border: 1px solid var(--ant-border-color-split);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: var(--ant-component-background);
+  border-color: var(--ant-border-color-split);
+  position: relative;
+  z-index: 2;
+}
+
+.toolbarButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: #4b4b4b;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  color: var(--ant-text-color);
+  background-color: var(--ant-component-background);
+  border: 1px solid var(--ant-border-color-base);
+}
+
+.toolbarButton:hover {
+  background-color: var(--ant-background-color-secondary);
+  border-color: var(--ant-primary-color);
+  color: var(--ant-primary-color);
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #e0e0e0;
+  margin: 0 4px;
+}
+
+.testOperations {
+  position: relative;
+  display: inline-block;
+}
+
+/* Add these icon-specific styles if you're using SVG icons */
+.toolbarButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Light theme (default) variables */
+:root {
+  --ant-background-color: #ffffff;
+  --ant-background-color-secondary: #f5f5f5;
+  --ant-text-color: #333333;
+  --ant-text-color-secondary: #666666;
+  --ant-border-color-base: #ddd;
+  --ant-background-color-secondary: #f0f0f0;
+  --ant-component-background: #ffffff;
+  --ant-border-color-split: #e2e8f0;
+  --ant-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  --ant-background-color: #1a1a1a;
+  --ant-background-color-secondary: #2d2d2d;
+  --ant-text-color: #ffffff;
+  --ant-text-color-secondary: #b3b3b3;
+  --ant-border-color-base: #404040;
+  --ant-background-color-secondary: #3d3d3d;
+  --ant-component-background: #2d2d2d;
+  --ant-border-color-split: #404040;
+  --ant-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Apply variables to existing classes */
+.appContainer {
+  background-color: var(--ant-background-color);
+  color: var(--ant-text-color);
+}
+
+.debugToolbar {
+  background-color: var(--ant-component-background);
+  border: 1px solid var(--ant-border-color-split);
+}
+
+.toolbarButton {
+  color: var(--ant-text-color);
+  background-color: var(--ant-component-background);
+  border: 1px solid var(--ant-border-color-base);
+}
+
+.toolbarButton:hover {
+  background-color: var(--ant-background-color-secondary);
+  border-color: var(--ant-primary-color);
+  color: var(--ant-primary-color);
+}
+
+.menuItems {
+  background-color: var(--ant-component-background);
+  border: 1px solid var(--ant-border-color-split);
+  box-shadow: var(--ant-box-shadow);
+}
+
+.menuItem {
+  color: var(--ant-text-color);
+}
+
+.menuItem:hover {
+  background-color: var(--ant-background-color-secondary);
+}
+
+.submenu {
+  background-color: var(--ant-component-background);
+  border-color: var(--ant-border-color-split);
+}
+
+/* Editor specific dark mode styles */
+.affinePageViewport[data-theme="dark"] {
+  background-color: var(--ant-background-color);
+}
+
+.affinePageViewport[data-theme="dark"] .inlineEditor {
+  color: var(--ant-text-color);
+}
+
+.affinePageViewport[data-theme="dark"] .blockTitle {
+  color: var(--ant-text-color);
+}
+
+.affinePageViewport[data-theme="dark"] .paragraphText {
+  color: var(--ant-text-color);
+}
+
+.affinePageViewport[data-theme="dark"] .affineParagraphPlaceholder {
+  color: var(--ant-text-color-secondary);
+}
+
+/* Optional: Add transition for smooth theme switching */
+.appContainer,
+.appContainer * {
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.editorContainer {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 60px); /* Adjust based on your toolbar height */
+  position: relative;
+  z-index: 1;
+}
+
+.editorContainer[data-mode="edgeless"] {
+  background-color: var(--background-secondary);
+}
+
+/* Position the edgeless toolbar */
+.edgelessToolbar {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.edgelessToolbarContainer {
+  position: absolute;
+  top: 100%; /* Position it right below debugToolbar */
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: inherit; /* Match parent background */
+  border-top: 1px solid #e8e8e8; /* Optional: adds separation line */
+  padding: 8px;
 }
