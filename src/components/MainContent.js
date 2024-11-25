@@ -6,6 +6,7 @@ import { NavDatatop, NavdataBottom } from "./navdata";
 
 import { IoIosAdd } from "react-icons/io";
 import Modal from "react-modal";
+import Block from "./Block";
 
 Modal.setAppElement("#root");
 
@@ -245,6 +246,7 @@ const MainContent = () => {
               </DraggableContent>
             ))}
           </div>
+          <Block />
         </div>
       </div>
 

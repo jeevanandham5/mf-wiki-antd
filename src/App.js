@@ -24,7 +24,7 @@ const App = () => {
           <div className={styles.contentWrapper}>
             {/*<SideNav />*/}
             <Routes>
-              <Route path="/" element={<Block />} />
+              <Route path="/" element={<MainContent />} />
               <Route path="/:section" element={<MainContent />} />
               <Route path="/:section/:subsection" element={<MainContent />} />
               <Route path="*" element={<MainContent title="Not Found" />} />
