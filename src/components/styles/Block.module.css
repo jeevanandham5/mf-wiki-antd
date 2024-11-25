@@ -645,19 +645,16 @@ sl-tooltip::part(base) {
 }
 
 .mainContainer {
-  min-height: 500px;
+  height: 100%;
   width: 100%;
   max-width: 2560px;
   background-color: transparent;
-  padding: 3rem 2rem 2rem;
+  padding: 1rem;
 }
 
 @media (min-width: 640px) {
   .mainContainer {
-    margin-bottom: calc(20vh);
     border-radius: 0.5rem;
-
-    padding: 4rem 2.5rem 2.5rem;
   }
 
   .editor {

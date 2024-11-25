@@ -378,7 +378,7 @@ const Block = () => {
                     </button>
                   </div>
                 </DraggableContent>
-                {content &&
+                {/* {content &&
                   content.map((item, index) => (
                     <DraggableContent
                       key={item.id}
@@ -390,7 +390,6 @@ const Block = () => {
                     </DraggableContent>
                   ))}
 
-                <div id="inspector"></div>
                 <DraggableContent
                   onDragStart={(e) => handleDragStart(e, "affineEditor")}
                   onDragEnd={handleDragEnd}
@@ -444,7 +443,7 @@ const Block = () => {
                       </div>
                     </div>
                   </affine-editor-container>
-                </DraggableContent>
+                </DraggableContent>*/}
               </div>
             </div>
           </div>
