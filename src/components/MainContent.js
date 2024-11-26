@@ -21,6 +21,7 @@ import {
 } from "@ant-design/icons";
 import { ConfigProvider, theme } from "antd";
 import EdgelessToolbar from "./EdgelessToolbar";
+import Methodology from "./Methodology";
 
 const customModalStyles = {
   content: {
@@ -74,7 +75,18 @@ const DraggableContent = ({
   onEdit,
 }) => {
   const handleEdit = (e) => {
-    onEdit(index, e.target.innerText);
+    // Only handle edit for plain text content
+    if (typeof children === "string") {
+      onEdit(index, e.target.innerText);
+    }
+  };
+
+  // Helper function to determine if content is editable
+  const isEditable = () => {
+    if (React.isValidElement(children)) {
+      return !["Methodology"].includes(children.type.name); // Add component names that shouldn't be editable
+    }
+    return true;
   };
 
   return (
@@ -86,16 +98,15 @@ const DraggableContent = ({
       onDragOver={onDragOver}
     >
       <div className={styles.iconContainer}>
-        <div className={styles.addIcon} onClick={(e) => onAddClick(index, e)}>
-          <IoIosAdd size={20} color="#B0B0B0" />
-        </div>
         <div className={styles.dragHandle}>
           <DragHandle />
         </div>
       </div>
       <div
-        className={styles.dragContent}
-        contentEditable="true"
+        className={`${styles.dragContent} ${
+          isEditable() ? styles.editable : ""
+        }`}
+        contentEditable={isEditable()}
         onBlur={handleEdit}
         suppressContentEditableWarning={true}
       >
@@ -193,6 +204,10 @@ const MainContent = () => {
       {
         id: "section-title",
         content: `Welcome to ${getTitle()}!`,
+      },
+      {
+        id: "methodology",
+        content: <Methodology />,
       },
       {
         id: "responsive-table",
@@ -359,10 +374,58 @@ const MainContent = () => {
   const handleEdit = (index, newContent) => {
     setContent((prevContent) => {
       const newContentArray = [...prevContent];
-      newContentArray[index] = {
-        ...newContentArray[index],
-        content: newContent,
-      };
+      const currentItem = newContentArray[index];
+
+      try {
+        switch (newContent.type) {
+          case "table":
+            const tableData = parseTableContent(newContent.content);
+            newContentArray[index] = {
+              ...currentItem,
+              content: (
+                <Table
+                  className={styles.customTable}
+                  columns={tableData.columns}
+                  dataSource={tableData.dataSource}
+                  pagination={false}
+                  scroll={{ x: "max-content" }}
+                />
+              ),
+            };
+            break;
+
+          case "code":
+            newContentArray[index] = {
+              ...currentItem,
+              content: (
+                <pre>
+                  <code>{newContent.content}</code>
+                </pre>
+              ),
+            };
+            break;
+
+          case "image":
+            newContentArray[index] = {
+              ...currentItem,
+              content: parseImageContent(newContent.content),
+            };
+            break;
+
+          default:
+            newContentArray[index] = {
+              ...currentItem,
+              content: newContent.content,
+            };
+        }
+      } catch (error) {
+        console.error("Error parsing content:", error);
+        newContentArray[index] = {
+          ...currentItem,
+          content: newContent.content,
+        };
+      }
+
       return newContentArray;
     });
   };
@@ -451,14 +514,20 @@ const MainContent = () => {
       hasSubmenu: true,
       submenuItems: [
         { label: "Export as PDF", action: () => console.log("Export PDF") },
-        { label: "Export as Markdown", action: () => console.log("Export MD") },
+        {
+          label: "Export as Markdown",
+          action: () => console.log("Export MD"),
+        },
       ],
     },
     {
       label: "Import",
       hasSubmenu: true,
       submenuItems: [
-        { label: "Import from File", action: () => console.log("Import file") },
+        {
+          label: "Import from File",
+          action: () => console.log("Import file"),
+        },
         { label: "Import from URL", action: () => console.log("Import URL") },
       ],
     },
@@ -466,9 +535,18 @@ const MainContent = () => {
       label: "Toggle CSS Debug Menu",
       action: () => console.log("Toggle CSS Debug"),
     },
-    { label: "Toggle Readonly", action: () => console.log("Toggle Readonly") },
-    { label: "Share Selection", action: () => console.log("Share Selection") },
-    { label: "Switch Offset Mode", action: () => console.log("Switch Offset") },
+    {
+      label: "Toggle Readonly",
+      action: () => console.log("Toggle Readonly"),
+    },
+    {
+      label: "Share Selection",
+      action: () => console.log("Share Selection"),
+    },
+    {
+      label: "Switch Offset Mode",
+      action: () => console.log("Switch Offset"),
+    },
     {
       label: "Toggle Outline Panel",
       action: () => console.log("Toggle Outline"),
@@ -477,7 +555,10 @@ const MainContent = () => {
       label: "Enable Outline Viewer",
       action: () => console.log("Enable Outline"),
     },
-    { label: "Toggle Frame Panel", action: () => console.log("Toggle Frame") },
+    {
+      label: "Toggle Frame Panel",
+      action: () => console.log("Toggle Frame"),
+    },
     {
       label: "Toggle Comment Panel",
       action: () => console.log("Toggle Comment"),
@@ -616,5 +697,4 @@ const MainContent = () => {
     </ConfigProvider>
   );
 };
-
 export default MainContent;

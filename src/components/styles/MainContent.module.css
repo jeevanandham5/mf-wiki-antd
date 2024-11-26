@@ -1,6 +1,6 @@
 .editorWrapper {
   width: 100%;
-  max-width: 2560px;
+
   padding: 1rem;
   color: black;
   background-color: transparent; /* Light background for the editor */
@@ -8,6 +8,7 @@
   box-shadow: 0 2px 10px rgba(253, 221, 221, 0.1);
   z-index: 1;
   position: relative;
+  overflow-x: hidden;
 }
 
 .headerImage {
@@ -1060,4 +1061,11 @@ sl-tooltip::part(base) {
 
 .customTable .ant-table-tbody > tr:hover > td {
   background-color: #b2ebf2; /* Hover color */
+}
+
+.mainContentContainer {
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in width calculation */
 }
