@@ -275,15 +275,19 @@
 .iconContainer {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .addIcon {
   cursor: pointer;
-
+  opacity: 0.5;
+  font-size: 20px;
   display: flex;
   align-items: center;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+}
+
+.addIcon:hover {
+  opacity: 1;
 }
 
 .dragWrapper:hover .addIcon {
@@ -1068,4 +1072,18 @@ sl-tooltip::part(base) {
   overflow-x: hidden; /* Prevent horizontal overflow */
   padding: 20px;
   box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.contentIcon {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.contentIcon:hover {
+  opacity: 1;
+}
+
+.customTable :global(.ant-table-thead > tr > th) {
+  background-color: plum !important;
+  color: #000000;
 }

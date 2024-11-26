@@ -4,51 +4,59 @@ import styles from "./styles/Methodology.module.css";
 const Methodology = () => {
   const [phases, setPhases] = useState([
     {
-      title: "CONCEPTUALIZATION",
+      title: "CONCEPT",
       items: [
-        "Identify market needs",
-        "Develop a unique value proposition",
-        "+2 Team Brainstorming Sessions",
-        "Pitch to potential investors",
-        "Formulate initial team (+2 Developers)",
+        "Market research",
+        "Value proposition",
+        "Team formation",
+        "Initial pitch",
       ],
       label: "PHASE 1",
     },
     {
-      title: "DEVELOPMENT",
+      title: "BUILD",
       items: [
-        "Design software architecture",
-        "Weekly sprint reviews",
-        "+5 Code Reviews; +3 User Testing Sessions",
-        "Ensure compliance with industry standards",
-        "Develop MVP & Budget Plan",
+        "Architecture design",
+        "Sprint planning",
+        "Code reviews",
+        "MVP development",
       ],
       label: "PHASE 2",
     },
     {
       title: "LAUNCH",
       items: [
-        "+5 Beta User Feedback Sessions",
-        "Refine value proposition",
-        "Launch marketing campaign",
-        "Generate leads and secure pre-orders",
+        "Beta testing",
+        "Marketing prep",
+        "Pre-orders",
+        "Initial release",
       ],
       label: "PHASE 3",
     },
     {
-      title: "GROWTH",
+      title: "SCALE",
       items: [
-        "Scale operations and support",
-        "Expand customer base",
-        "Iterate based on user feedback",
-        "Explore new market opportunities",
+        "Support system",
+        "Market expansion",
+        "User feedback",
+        "Growth planning",
       ],
       label: "PHASE 4",
     },
+    {
+      title: "INNOVATE",
+      items: [
+        "Product evolution",
+        "New features",
+        "Market trends",
+        "Tech upgrades",
+      ],
+      label: "PHASE 5",
+    },
   ]);
 
-  const [mainTitle, setMainTitle] = useState("SOFTWARE STARTUP METHODOLOGY");
-  const [cycleLabel, setCycleLabel] = useState("6-WEEK CYCLE");
+  const [mainTitle, setMainTitle] = useState("STARTUP ROADMAP");
+  const [cycleLabel, setCycleLabel] = useState("6-WEEK PLAN");
 
   const handleTitleChange = (e) => {
     setMainTitle(e.target.innerText);
