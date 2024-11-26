@@ -5,7 +5,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { NavDatatop, NavdataBottom } from "./navdata";
 
 import { IoIosAdd } from "react-icons/io";
-import { Modal } from "antd";
+import { Modal, Table } from "antd";
 import Block from "./Block";
 import {
   UndoOutlined,
@@ -121,6 +121,13 @@ const MainContent = () => {
   const editorRef = useRef(null);
   const { defaultAlgorithm, darkAlgorithm } = theme;
   const [editorMode, setEditorMode] = useState("page");
+  const [taskStatus, setTaskStatus] = useState({
+    task1: false,
+    task2: false,
+    task3: false,
+    task4: false,
+    task5: false,
+  });
 
   useEffect(() => {
     const darkModePreference = localStorage.getItem("darkMode") === "true";
@@ -157,10 +164,14 @@ const MainContent = () => {
       .join(" > ");
   };
 
-  useEffect(() => {
-    const title = getTitle();
-    const currentPath = getCurrentPath();
+  const handleTaskToggle = (taskId) => {
+    setTaskStatus((prevStatus) => ({
+      ...prevStatus,
+      [taskId]: !prevStatus[taskId],
+    }));
+  };
 
+  useEffect(() => {
     setContent([
       {
         id: "headerImage",
@@ -173,7 +184,7 @@ const MainContent = () => {
                   "--bg-image": `url("https://images.pexels.com/photos/245240/pexels-photo-245240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")`,
                 }}
               >
-                <h1>{title}</h1>
+                <h1>{getTitle()}</h1>
               </div>
             </div>
           </>
@@ -181,11 +192,58 @@ const MainContent = () => {
       },
       {
         id: "section-title",
-        content: `Welcome to ${title}!`,
+        content: `Welcome to ${getTitle()}!`,
+      },
+      {
+        id: "responsive-table",
+        content: (
+          <Table
+            className={styles.customTable}
+            columns={[
+              {
+                title: "Name",
+                dataIndex: "name",
+                key: "name",
+              },
+              {
+                title: "Age",
+                dataIndex: "age",
+                key: "age",
+              },
+              {
+                title: "Address",
+                dataIndex: "address",
+                key: "address",
+              },
+            ]}
+            dataSource={[
+              {
+                key: "1",
+                name: "John Brown",
+                age: 32,
+                address: "New York No. 1 Lake Park",
+              },
+              {
+                key: "2",
+                name: "Jim Green",
+                age: 42,
+                address: "London No. 1 Lake Park",
+              },
+              {
+                key: "3",
+                name: "Joe Black",
+                age: 32,
+                address: "Sidney No. 1 Lake Park",
+              },
+            ]}
+            pagination={false}
+            scroll={{ x: "max-content" }}
+          />
+        ),
       },
       {
         id: "section-content",
-        content: `This is the content for the ${title} ${
+        content: `This is the content for the ${getTitle()} ${
           subsection ? "subsection" : "section"
         }.`,
       },
@@ -202,15 +260,6 @@ const MainContent = () => {
                   mission is to empower companies with cutting-edge solutions
                   that streamline operations and enhance productivity.
                 </p>
-                <p>
-                  Join us on our journey to innovate and transform the digital
-                  landscape. Whether you're a startup looking to scale or an
-                  established enterprise seeking to optimize, InnovateTech is
-                  your partner in success.
-                </p>
-                <button onClick={() => console.log("Learn More clicked")}>
-                  Learn More
-                </button>
               </div>
             </code>
           </pre>
@@ -223,23 +272,48 @@ const MainContent = () => {
             <h3>Tasks To Do</h3>
             <ul>
               <li>
-                <input type="checkbox" id="task1" />
+                <input
+                  type="checkbox"
+                  id="task1"
+                  checked={taskStatus.task1}
+                  onChange={() => handleTaskToggle("task1")}
+                />
                 <label htmlFor="task1">Review project requirements</label>
               </li>
               <li>
-                <input type="checkbox" id="task2" />
+                <input
+                  type="checkbox"
+                  id="task2"
+                  checked={taskStatus.task2}
+                  onChange={() => handleTaskToggle("task2")}
+                />
                 <label htmlFor="task2">Design the user interface</label>
               </li>
               <li>
-                <input type="checkbox" id="task3" />
+                <input
+                  type="checkbox"
+                  id="task3"
+                  checked={taskStatus.task3}
+                  onChange={() => handleTaskToggle("task3")}
+                />
                 <label htmlFor="task3">Implement authentication</label>
               </li>
               <li>
-                <input type="checkbox" id="task4" />
+                <input
+                  type="checkbox"
+                  id="task4"
+                  checked={taskStatus.task4}
+                  onChange={() => handleTaskToggle("task4")}
+                />
                 <label htmlFor="task4">Test application functionality</label>
               </li>
               <li>
-                <input type="checkbox" id="task5" />
+                <input
+                  type="checkbox"
+                  id="task5"
+                  checked={taskStatus.task5}
+                  onChange={() => handleTaskToggle("task5")}
+                />
                 <label htmlFor="task5">Deploy to production</label>
               </li>
             </ul>
@@ -247,7 +321,7 @@ const MainContent = () => {
         ),
       },
     ]);
-  }, [section, subsection, location.pathname]);
+  }, [taskStatus, section, subsection, location.pathname]);
 
   const handleDragStart = (e, index) => {
     setDragging(index);
