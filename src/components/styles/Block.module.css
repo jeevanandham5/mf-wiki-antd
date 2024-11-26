@@ -1,316 +1,3 @@
-.editorWrapper {
-  width: 100%;
-
-  padding: 1rem;
-  color: black;
-  background-color: transparent; /* Light background for the editor */
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(253, 221, 221, 0.1);
-  z-index: 1;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.headerImage {
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: left;
-  color: red;
-  font-size: 2rem;
-  font-weight: bold;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  position: relative;
-  padding: 1.5rem;
-  margin: 1rem;
-  z-index: 3;
-}
-.headerImage h1 {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  margin: 0;
-}
-.mainContainer {
-  height: 100%;
-}
-
-.dragWrapper {
-  display: flex;
-  align-items: center;
-}
-
-.dragHandle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 1.5rem;
-}
-
-/* Ensure drag content takes available space */
-.dragContent {
-  flex-grow: 1;
-  line-height: 1.5rem;
-}
-
-.mainContainer {
-  width: 100%;
-  height: 100%;
-  color: black;
-  padding: 3rem 2rem 2rem;
-}
-
-@media (min-width: 640px) {
-  .mainContainer {
-    height: 100%;
-    margin-bottom: calc(20vh);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-  }
-
-  .editor {
-    font-family: var(--font-default);
-    max-width: 100%;
-    outline: none;
-    padding: 1rem;
-  }
-
-  .editor:focus {
-    outline: none;
-  }
-
-  .link {
-    color: var(--muted-foreground);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  .link:hover {
-    color: var(--primary-color);
-  }
-
-  .divider {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    border-top: 1px solid var(--muted-foreground);
-  }
-
-  .taskList {
-    list-style: none;
-    padding-left: 0.5rem;
-  }
-
-  .taskItem {
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-    margin: 1rem 0;
-  }
-
-  /* Add these CSS variables to your :root or body */
-  :root {
-    --accent-color: #f4f4f5;
-    --muted-foreground: #71717a;
-    --background: #ffffff;
-    --muted-color: #e4e4e7;
-    --primary-color: #18181b;
-    --font-default: system-ui, -apple-system, sans-serif;
-  }
-
-  /* Dark mode support */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --accent-color: #27272a;
-      --muted-foreground: #a1a1aa;
-      --background: #18181b;
-      --muted-color: #27272a;
-      --primary-color: #fafafa;
-    }
-  }
-
-  /* Prose styles for the editor */
-  .editor h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  .editor h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
-
-  .editor p {
-    margin-bottom: 1rem;
-    line-height: 1.75;
-  }
-
-  .editor pre {
-    background-color: var(--accent-color);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin: 1rem 0;
-    overflow-x: auto;
-  }
-
-  .editor code {
-    font-family: monospace;
-  }
-
-  /* For smaller screens */
-  @media (max-width: 639px) {
-    .editorWrapper {
-      margin: 1rem auto;
-      padding: 0 1rem;
-    }
-
-    .mainContainer {
-      height: 100%;
-      padding: 3rem 1.5rem 1.5rem;
-    }
-  }
-
-  /* Drag handle styles */
-  .dragWrapper {
-    display: flex;
-
-    align-items: center;
-    padding: 0.15rem;
-  }
-
-  .dragHandle {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    opacity: 0;
-    cursor: grab;
-    transition: opacity 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted-foreground);
-  }
-
-  .dragWrapper:hover .dragHandle {
-    opacity: 1;
-  }
-
-  .dragHandle:active {
-    cursor: grabbing;
-  }
-
-  .dragContent {
-    flex: 1;
-  }
-
-  /* Dragging states */
-  .dragWrapper.dragging {
-    opacity: 0.5;
-    background: var(--accent-color);
-    border-radius: 0.25rem;
-  }
-
-  .dragWrapper.dragging .dragHandle {
-    opacity: 1;
-    cursor: grabbing;
-  }
-
-  /* Drag placeholder */
-  .dragPlaceholder {
-    height: 2px;
-    background-color: var(--primary-color);
-
-    border-radius: 1px;
-    position: relative;
-  }
-
-  .dragPlaceholder::before {
-    content: "";
-    position: absolute;
-    left: -4px;
-    top: -3px;
-    width: 8px;
-    height: 8px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-  }
-}
-
-.bubbleMenu {
-  display: flex;
-  gap: 0.5rem;
-  background-color: #fff;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.bubbleMenu button {
-  border: none;
-  background: none;
-  color: #0f172a;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
-
-.bubbleMenu button:hover {
-  background-color: #f1f5f9;
-}
-
-.bubbleMenu button.isActive {
-  color: #2563eb;
-  background-color: #eff6ff;
-}
-.iconContainer {
-  display: flex;
-  align-items: center;
-}
-
-.addIcon {
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.dragWrapper:hover .addIcon {
-  opacity: 1;
-}
-
-.dragHandle {
-  cursor: grab;
-  display: flex;
-  align-items: center;
-}
-
-.dragContent[contenteditable="true"] {
-  min-height: 24px;
-  padding: 8px;
-  outline: none; /* Remove default outline */
-  /* Add transparent border to prevent layout shift */
-}
-
-.dragContent[contenteditable="true"]:focus {
-  border-radius: 4px;
-}
-
-/* Optional: Add a hover state */
-.dragContent[contenteditable="true"]:hover {
-  border-color: #e0e0e0;
-}
 .appContainer {
   width: 100%;
   height: 100%;
@@ -501,10 +188,12 @@ sl-tooltip::part(base) {
 .debugMenu {
   display: flex;
   flex-wrap: nowrap;
-
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   overflow: auto;
-  /* for debug visibility */
+  z-index: 1000; /* for debug visibility */
   pointer-events: none;
 }
 
@@ -634,10 +323,14 @@ sl-tooltip::part(base) {
   align-items: center;
   gap: 4px;
   padding: 8px;
-
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  z-index: 1000;
   pointer-events: auto;
-  background-color: transparent;
+  background-color: var(--ant-component-background);
   border-bottom-left-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .toolbarButton {
@@ -650,7 +343,7 @@ sl-tooltip::part(base) {
   border-radius: 6px;
   color: #4b4b4b;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   transition: background-color 0.2s;
   color: var(--ant-text-color);
   background-color: var(--ant-component-background);
@@ -677,8 +370,8 @@ sl-tooltip::part(base) {
 
 /* Add these icon-specific styles if you're using SVG icons */
 .toolbarButton svg {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
 }
 
 /* Light theme (default) variables */
@@ -924,26 +617,243 @@ sl-tooltip::part(base) {
 .darkMode .blockWrapper:hover {
   background-color: rgba(255, 255, 255, 0.03);
 }
-
-/* Add these CSS variables to your :root or body */
-:root {
-  --accent-color: #f4f4f5;
-  --muted-foreground: #71717a;
-  --background: #ffffff;
-  --muted-color: #e4e4e7;
-  --primary-color: #18181b;
-  --font-default: system-ui, -apple-system, sans-serif;
+.editorWrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 2560px;
+  margin: 1rem auto;
+  padding: 0 1rem;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --accent-color: #27272a;
-    --muted-foreground: #a1a1aa;
-    --background: #18181b;
-    --muted-color: #27272a;
-    --primary-color: #fafafa;
+.dragWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.dragHandle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  height: 1.5rem;
+}
+
+/* Ensure drag content takes available space */
+.dragContent {
+  flex-grow: 1;
+  line-height: 1.5rem;
+}
+
+.mainContainer {
+  height: 100%;
+  width: 100%;
+  max-width: 2560px;
+  background-color: transparent;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mainContainer {
+    border-radius: 0.5rem;
   }
+
+  .editor {
+    font-family: var(--font-default);
+    max-width: 100%;
+    outline: none;
+    padding: 1rem;
+  }
+
+  .editor:focus {
+    outline: none;
+  }
+
+  .link {
+    color: var(--muted-foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .link:hover {
+    color: var(--primary-color);
+  }
+
+  .divider {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid var(--muted-foreground);
+  }
+
+  .taskList {
+    list-style: none;
+    padding-left: 0.5rem;
+  }
+
+  .taskItem {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+
+  /* Add these CSS variables to your :root or body */
+  :root {
+    --accent-color: #f4f4f5;
+    --muted-foreground: #71717a;
+    --background: #ffffff;
+    --muted-color: #e4e4e7;
+    --primary-color: #18181b;
+    --font-default: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent-color: #27272a;
+      --muted-foreground: #a1a1aa;
+      --background: #18181b;
+      --muted-color: #27272a;
+      --primary-color: #fafafa;
+    }
+  }
+
+  /* Prose styles for the editor */
+  .editor h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .editor h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .editor p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .editor pre {
+    background-color: var(--accent-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+
+  .editor code {
+    font-family: monospace;
+  }
+
+  /* For smaller screens */
+  @media (max-width: 639px) {
+    .editorWrapper {
+      margin: 1rem auto;
+      padding: 0 1rem;
+    }
+
+    .mainContainer {
+      padding: 3rem 1.5rem 1.5rem;
+    }
+  }
+
+  /* Drag handle styles */
+  .dragWrapper {
+    position: relative;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 0.25rem 0;
+  }
+
+  .dragHandle {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    cursor: grab;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-foreground);
+  }
+
+  .dragWrapper:hover .dragHandle {
+    opacity: 1;
+  }
+
+  .dragHandle:active {
+    cursor: grabbing;
+  }
+
+  .dragContent {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Dragging states */
+  .dragWrapper.dragging {
+    opacity: 0.5;
+    background: var(--accent-color);
+    border-radius: 0.25rem;
+  }
+
+  .dragWrapper.dragging .dragHandle {
+    opacity: 1;
+    cursor: grabbing;
+  }
+
+  /* Drag placeholder */
+  .dragPlaceholder {
+    height: 2px;
+    background-color: var(--primary-color);
+    margin: 4px 0;
+    border-radius: 1px;
+    position: relative;
+  }
+
+  .dragPlaceholder::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+  }
+}
+
+.bubbleMenu {
+  display: flex;
+  gap: 0.5rem;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bubbleMenu button {
+  border: none;
+  background: none;
+  color: #0f172a;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.bubbleMenu button:hover {
+  background-color: #f1f5f9;
+}
+
+.bubbleMenu button.isActive {
+  color: #2563eb;
+  background-color: #eff6ff;
 }
 
 .debugToolbar .undoButton svg {
@@ -989,83 +899,4 @@ sl-tooltip::part(base) {
 /* Remove hover color changes for icons */
 .debugToolbar .toolbarButton:hover svg {
   fill: inherit; /* Ensure hover does not change icon color */
-}
-
-.modalBody {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.contentOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.optionButton {
-  background-color: #1890ff; /* Primary color */
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.optionButton:hover {
-  background-color: #40a9ff; /* Hover color */
-}
-
-.closeButton {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.customTable {
-  width: 100%;
-  max-width: 800px;
-  height: auto;
-  margin: 0 auto;
-  overflow-x: auto;
-}
-
-.customTable .ant-table {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px; /* Rounded corners */
-  overflow: hidden; /* Ensure rounded corners are visible */
-}
-
-.customTable .ant-table-thead > tr > th {
-  background-color: #4caf50; /* Header background color */
-  color: white; /* Header text color */
-  text-align: left;
-  padding: 8px;
-}
-
-.customTable .ant-table-tbody > tr > td {
-  background-color: #f9f9f9; /* Row background color */
-  color: #333; /* Row text color */
-  padding: 8px;
-  transition: background-color 0.3s; /* Smooth transition for hover */
-}
-
-.customTable .ant-table-tbody > tr:nth-child(even) > td {
-  background-color: #e0f7fa; /* Alternate row color */
-}
-
-.customTable .ant-table-tbody > tr:hover > td {
-  background-color: #b2ebf2; /* Hover color */
-}
-
-.mainContentContainer {
-  width: 100%;
-  overflow-x: hidden; /* Prevent horizontal overflow */
-  padding: 20px;
-  box-sizing: border-box; /* Include padding in width calculation */
 }

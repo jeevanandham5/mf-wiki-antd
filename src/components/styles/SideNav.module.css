@@ -192,3 +192,55 @@ a {
   overflow-y: auto;
   padding: 16px;
 }
+
+.menuItemContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 8px;
+  min-height: 32px; /* Ensure consistent height */
+}
+
+.menuItemText {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+
+.addIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  visibility: hidden; /* Hide by default */
+}
+
+/* Show add icon on menu item hover */
+.menuItemContainer:hover .addIconContainer {
+  visibility: visible;
+}
+
+.addIconContainer.hovered {
+  background-color: #ccc;
+}
+
+/* Adjust the ant-menu styles to accommodate the new structure */
+:global(.ant-menu-item),
+:global(.ant-menu-submenu-title) {
+  padding-right: 8px !important;
+}
+
+:global(.ant-menu-item-icon) {
+  margin-right: 8px !important;
+}
+
+/* Ensure submenu items align properly */
+:global(.ant-menu-sub) .menuItemContainer {
+  padding-left: 0;
+}

@@ -12,8 +12,6 @@ button:focus,
 button:focus-visible,
 button:active,
 button:focus-within {
-  outline: none !important;
-  border: none !important;
   -webkit-tap-highlight-color: #f3f4f6;
 }
 .menuBar {

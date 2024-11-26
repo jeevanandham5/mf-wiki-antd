@@ -52,15 +52,8 @@ const SideNav = ({ onItemClick, currentPath }) => {
     key: `top${index}`,
     icon: <>{item.icon}</>,
     label: (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-        onClick={() => navigate(item.path)}
-      >
-        <span style={{ marginLeft: "8px" }}>{item.name}</span>
+      <div className={styles.menuItemContainer}>
+        <span className={styles.menuItemText}>{item.name}</span>
         <div
           onMouseEnter={() =>
             setHoveredButton({ sectionId: "top", buttonId: index })
@@ -69,15 +62,12 @@ const SideNav = ({ onItemClick, currentPath }) => {
             setHoveredButton({ sectionId: null, buttonId: null })
           }
           onClick={(e) => handleAddClick("top", index, e)}
-          style={{
-            background:
-              hoveredButton.sectionId === "top" &&
-              hoveredButton.buttonId === index
-                ? "#ccc"
-                : "transparent",
-            cursor: "pointer",
-            padding: "2px",
-          }}
+          className={`${styles.addIconContainer} ${
+            hoveredButton.sectionId === "top" &&
+            hoveredButton.buttonId === index
+              ? styles.hovered
+              : ""
+          }`}
         >
           <IoIosAdd size={20} color="#B0B0B0" />
         </div>
@@ -93,35 +83,31 @@ const SideNav = ({ onItemClick, currentPath }) => {
     key: `sub${index + 1}`,
     icon: item.icon,
     label: (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-        onClick={() => {
-          navigate(item.path);
-          handleItemClick(item);
-        }}
-      >
-        <span>{item.name}</span>
+      <div className={styles.menuItemContainer}>
+        <span
+          className={styles.menuItemText}
+          onClick={() => {
+            navigate(item.path);
+            handleItemClick(item);
+          }}
+        >
+          {item.name}
+        </span>
       </div>
     ),
     children: item.submenu.map((subItem, subIndex) => ({
       key: `${index}-${subIndex}`,
       label: (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-          onClick={() => {
-            navigate(subItem.path);
-            handleItemClick(subItem);
-          }}
-        >
-          <span>{subItem.name}</span>
+        <div className={styles.menuItemContainer}>
+          <span
+            className={styles.menuItemText}
+            onClick={() => {
+              navigate(subItem.path);
+              handleItemClick(subItem);
+            }}
+          >
+            {subItem.name}
+          </span>
           <div
             onMouseEnter={() =>
               setHoveredButton({
@@ -133,14 +119,11 @@ const SideNav = ({ onItemClick, currentPath }) => {
               setHoveredButton({ sectionId: null, buttonId: null })
             }
             onClick={(e) => handleAddClick("subItem", subIndex, e)}
-            style={{
-              background:
-                hoveredButton.sectionId === `${index}-${subIndex}`
-                  ? "#ccc"
-                  : "transparent",
-              cursor: "pointer",
-              padding: "2px",
-            }}
+            className={`${styles.addIconContainer} ${
+              hoveredButton.sectionId === `${index}-${subIndex}`
+                ? styles.hovered
+                : ""
+            }`}
           >
             <IoIosAdd size={20} color="#B0B0B0" />
           </div>
