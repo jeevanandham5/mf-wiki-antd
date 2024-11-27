@@ -1,5 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles/BlockEditor.module.css";
+import SlashMenu from "./SlashMenu";
+import { DragHandle } from "./icons/DragHandle";
+import Toolbarwidget from "./Toolbarwidget";
 
 const BlockEditor = () => {
   const [blocks, setBlocks] = useState([
@@ -30,14 +33,14 @@ const BlockEditor = () => {
       dropTarget: null,
     });
 
-    // Create custom drag preview
+    // Create a transparent drag preview
     const dragPreview = document.createElement("div");
-    dragPreview.className = styles.dragPreview;
-    dragPreview.textContent =
-      blocks.find((b) => b.id === blockId)?.content || "";
+    dragPreview.style.width = "0px";
+    dragPreview.style.height = "0px";
+    dragPreview.style.opacity = "0";
     document.body.appendChild(dragPreview);
 
-    // Set drag image
+    // Set drag image to the transparent preview
     e.dataTransfer.setDragImage(dragPreview, 0, 0);
     setTimeout(() => dragPreview.remove(), 0);
 
@@ -108,7 +111,9 @@ const BlockEditor = () => {
       >
         {/* Drag Handle */}
         <div className={styles.dragHandle} ref={dragHandleRef}>
-          <div className={styles.dragHandleIcon}>⋮⋮</div>
+          <div className={styles.dragHandleIcon}>
+            <DragHandle />
+          </div>
         </div>
 
         <div className={styles.affineParagraphBlockContainer}>
@@ -118,6 +123,12 @@ const BlockEditor = () => {
                 contentEditable="true"
                 className={styles.inlineEditor}
                 data-v-root="true"
+                onKeyDown={(e) => {
+                  if (e.key === "/" && !block.content) {
+                    e.preventDefault();
+                    openSlashMenu();
+                  }
+                }}
               >
                 <v-line style={{ display: "block" }}>
                   <div style={{ padding: "0 0.5px", display: "inline-block" }}>
@@ -133,6 +144,15 @@ const BlockEditor = () => {
               <div
                 contentEditable="false"
                 className={styles.affineParagraphPlaceholder}
+                onClick={(e) => {
+                  const editableDiv =
+                    e.currentTarget.previousElementSibling.querySelector(
+                      '[contentEditable="true"]'
+                    );
+                  if (editableDiv) {
+                    editableDiv.focus();
+                  }
+                }}
               >
                 Type '/' for commands
               </div>
@@ -151,8 +171,75 @@ const BlockEditor = () => {
     </affine-paragraph>
   );
 
+  const [isSlashMenuOpen, setIsSlashMenuOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const editorRef = useRef(null);
+
+  // Function to calculate and set menu position
+  function calculateMenuPosition() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+
+    setMenuPosition({
+      x: rect.left,
+      y: rect.bottom + window.scrollY,
+    });
+  }
+
+  // Function to open the slash menu modal
+  function openSlashMenu() {
+    calculateMenuPosition();
+    setIsSlashMenuOpen(true);
+    console.log("Slash menu opened");
+  }
+
+  // Function to close the slash menu modal
+  function closeSlashMenu() {
+    setIsSlashMenuOpen(false);
+  }
+
+  // Remove or modify this useEffect if it's no longer needed
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        closeSlashMenu();
+      }
+    }
+
+    const editor = editorRef.current;
+    if (editor) {
+      editor.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      if (editor) {
+        editor.removeEventListener("keydown", handleKeyDown);
+      }
+    };
+  }, []);
+
+  // Function to open the modal
+  function openBlocksuiteModal(selectedText) {
+    // Logic to display the modal with selectedText
+    // Example: setModalContent(selectedText);
+    // Show modal
+  }
+
+  // Event listener for text selection
+  document.addEventListener("mouseup", function () {
+    const selectedText = window.getSelection().toString();
+    if (selectedText) {
+      openBlocksuiteModal(selectedText);
+    }
+  });
+
   return (
     <div data-theme="light" className={styles.affinePageViewport}>
+      <Toolbarwidget />
+
       <doc-title>
         <div data-block-is-title="true" className={styles.docTitleContainer}>
           <rich-text>
@@ -226,6 +313,18 @@ const BlockEditor = () => {
           </affine-page-root>
         </editor-host>
       </div>
+
+      {isSlashMenuOpen && (
+        <SlashMenu
+          position={menuPosition}
+          onClose={closeSlashMenu}
+          style={{
+            position: "absolute",
+            left: `${menuPosition.x}px`,
+            top: `${menuPosition.y}px`,
+          }}
+        />
+      )}
     </div>
   );
 };

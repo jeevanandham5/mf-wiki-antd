@@ -1,0 +1,76 @@
+/* Toolbar styles */
+.affineFormatBarWidget {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0; /* Example background color */
+  padding: 10px; /* Example padding */
+  top: 247px;
+  left: 296.6px;
+  z-index: var(--affine-z-index-popover);
+  user-select: none;
+  position: absolute;
+}
+
+/* Paragraph button styles */
+.paragraphButton {
+  margin-right: 10px; /* Example margin */
+}
+
+/* Paragraph button icon styles */
+.paragraphButtonIcon {
+  width: 24px; /* Example width */
+  height: 24px; /* Example height */
+}
+
+/* Icon styles */
+.icon {
+  fill: currentColor; /* Inherit color from parent */
+}
+
+/* Paragraph panel styles */
+.paragraphPanel {
+  display: none; /* Initially hidden */
+  position: absolute; /* Positioning for dropdown */
+  background-color: white; /* Example background color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Example shadow */
+}
+
+/* Highlight button styles */
+.highlightButton {
+  position: relative; /* For positioning child elements */
+}
+
+/* Highlight panel styles */
+.highlightPanel {
+  display: none; /* Initially hidden */
+  position: absolute; /* Positioning for dropdown */
+  background-color: white; /* Example background color */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Example shadow */
+}
+
+/* Highlight panel heading styles */
+.highlighPanelHeading {
+  font-weight: bold; /* Example font weight */
+  margin-bottom: 5px; /* Example margin */
+}
+
+/* Additional styles for menu actions */
+.editor-menu-action {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px; /* Example padding */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover effect for menu actions */
+.editor-menu-action:hover {
+  background-color: #e0e0e0; /* Example hover background color */
+}
+
+/* Toolbar separator styles */
+.editor-toolbar-separator {
+  width: 1px; /* Example width */
+  height: 20px; /* Example height */
+  background-color: #ccc; /* Example color */
+  margin: 0 10px; /* Example margin */
+}

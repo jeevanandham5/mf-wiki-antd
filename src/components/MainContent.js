@@ -659,7 +659,9 @@ const MainContent = () => {
                 className={styles.toolbarButton}
                 onClick={toggleEditorMode}
                 title="Switch Editor Mode"
-              ></button>
+              >
+                <SyncOutlined />
+              </button>
               {editorMode === "edgeless" && <EdgelessToolbar />}
               <affine-editor-container
                 data-mode={editorMode}

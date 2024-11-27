@@ -1,902 +1,247 @@
-.appContainer {
-  width: 100%;
-  height: 100%;
-  margin-left: 2rem;
-  background-color: var(--ant-background-color);
-  color: var(--ant-text-color);
-}
-
-.toolbar {
-  display: flex;
-  gap: 8px;
-  padding: 8px;
-  background: #ffffff;
-  border-radius: 8px;
-  align-items: center;
-}
-.tooltip {
-  width: 30px;
-  height: 30px;
-}
-/* Style for the button group */
-sl-button-group {
-  display: flex;
-  gap: 10px; /* Space between buttons */
-  align-items: center; /* Center the buttons vertically */
-}
-
-/* Tooltip styles */
-sl-tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-/* Styling for the buttons */
-sl-button {
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  color: #333;
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-sl-button:hover:not([disabled]) {
-  background-color: #e0e0e0;
-  transform: translateY(-2px);
-}
-
-sl-button:active:not([disabled]) {
-  background-color: #d1d1d1;
-  transform: translateY(1px);
-}
-
-/* Disabled button style */
-sl-button[disabled] {
-  background-color: #f1f1f1;
-  border-color: #e0e0e0;
-  color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Adjusting the spacing between the icon and the button */
-sl-button sl-icon {
-  margin-right: 8px;
-  vertical-align: -2px;
-}
-
-/* Styling for tooltips */
-sl-tooltip::part(base) {
-  color: #fff;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-sl-tooltip[placement="bottom"]::part(base) {
-  margin-top: 8px;
-}
-/* Ensure the icon is visible by setting a size */
-sl-icon {
-  width: 20px; /* Set width */
-  height: 20px; /* Set height */
-  display: inline-block; /* Make sure the icon is displayed */
-  vertical-align: -2px;
-}
-
-/* Optional: If you want the icon to scale along with the button size */
-sl-button {
-  display: flex;
-  align-items: center; /* Vertically center the icon and text */
-  justify-content: center;
-}
-
-/* Optional: Adjust the icon size for small buttons */
-sl-button[size="small"] sl-icon {
-  width: 26px;
-  height: 26px;
-  display: inline-block;
-  color: red;
-}
-/* Initially hide all submenus */
-.sl-menu[slot="submenu"] {
-  display: none;
-}
-
-/* Show submenu when its parent menu item is active */
-.sl-menu-item.active > .sl-menu[slot="submenu"] {
-  display: block;
-}
-.buttonGroup {
-  display: flex;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  overflow: hidden;
-}
-sl-tooltip::part(base) {
-  height: 80px !important;
-  overflow: visible !important;
-}
-/* Button base styles */
-sl-button::part(base) {
-  width: 60px !important;
-  height: 60px !important;
-  min-width: 40px !important;
-  padding: 0 6px !important;
-  background-color: white !important;
-  border: 1px solid #e2e8f0 !important;
-  border-radius: 6px !important;
-  color: red !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 4px !important;
-  overflow: visible !important;
-}
-
-/* Group button styles */
-.buttonGroup sl-button::part(base) {
-  border: none !important;
-  border-radius: 0 !important;
-  min-width: 40px !important;
-}
-
-/* Test Operations button */
-.testOpsButton::part(base) {
-  padding: 0 16px !important;
-  min-width: 140px !important;
-  justify-content: space-between !important;
-}
-
-/* SVG icon styles */
-svg {
-  display: block;
-  color: #4b5563;
-}
-
-.caret {
-  margin-left: 4px;
-}
-
-/* Hover state */
-sl-button::part(base):hover {
-  background-color: #f8f9fa !important;
-}
-
-/* Focus state */
-sl-button::part(base):focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* Tooltip styles */
-sl-tooltip::part(base) {
-  --sl-tooltip-arrow-size: 6px;
-  --sl-tooltip-background-color: #1f2937;
-  --sl-tooltip-color: #ffffff;
-  font-size: 12px;
-  padding: 4px 8px;
-  overflow: visible !important;
-  z-index: 1001;
-}
-
-.debugMenu {
-  display: flex;
-  flex-wrap: nowrap;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: auto;
-  z-index: 1000; /* for debug visibility */
-  pointer-events: none;
-}
-
-@media print {
-  .debugMenu {
-    display: none;
-  }
-}
-
-.defaultToolbar {
-  display: flex;
-  gap: 8px;
-  padding: 8px;
-  width: 100%;
-  min-width: 390px;
-  overflow: visible;
-  pointer-events: auto;
-}
-
-.edgelessToolbar {
-  align-items: center;
-  margin-right: 17px;
-  pointer-events: auto;
-}
-
-.edgelessToolbar sl-select,
-.edgelessToolbar sl-color-picker,
-.edgelessToolbar sl-button {
-  margin-right: 4px;
-}
-
-.container {
-  position: relative;
-}
-
-.testOperation {
-  position: relative;
-  display: inline-block;
-}
-
-.menuItems {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 200px;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  padding: 4px 0;
-  background-color: var(--ant-component-background);
-  border-color: var(--ant-border-color-split);
-  color: var(--ant-text-color);
-  box-shadow: var(--ant-box-shadow);
-}
-
-.menuItemWrapper {
-  position: relative;
-}
-
-.menuItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 6px 16px;
-  border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-  color: #333;
-  font-size: 14px;
-  white-space: nowrap;
-  color: var(--ant-text-color);
-}
-
-.menuItem:hover {
-  background-color: #f5f5f5;
-  background-color: var(--ant-background-color-secondary);
-}
-
-.submenuArrow {
-  font-size: 12px;
-  color: #666;
-  transform: rotate(-90deg);
-  margin-left: 8px;
-}
-
-.submenu {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  min-width: 200px;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  display: none;
-  background-color: var(--ant-component-background);
-  border-color: var(--ant-border-color-split);
-}
-
-.menuItemWrapper:hover .submenu {
-  display: block;
-}
-
-/* Optional: Add transition effects */
-.menuItems,
-.submenu {
-  animation: fadeIn 0.1s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.debugToolbar {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px;
-  position: fixed;
-  top: 30px;
-  right: 30px;
-  z-index: 1000;
-  pointer-events: auto;
-  background-color: var(--ant-component-background);
-  border-bottom-left-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.toolbarButton {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border: none;
-  background: transparent;
-  border-radius: 6px;
-  color: #4b4b4b;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s;
-  color: var(--ant-text-color);
-  background-color: var(--ant-component-background);
-  border: 1px solid var(--ant-border-color-base);
-}
-
-.toolbarButton:hover {
-  background-color: var(--ant-background-color-secondary);
-  border-color: var(--ant-primary-color);
-  color: var(--ant-primary-color);
-}
-
-.divider {
-  width: 1px;
-  height: 24px;
-  background-color: #e0e0e0;
-  margin: 0 4px;
-}
-
-.testOperations {
-  position: relative;
-  display: inline-block;
-}
-
-/* Add these icon-specific styles if you're using SVG icons */
-.toolbarButton svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Light theme (default) variables */
-:root {
-  --ant-background-color: #ffffff;
-  --ant-background-color-secondary: #f5f5f5;
-  --ant-text-color: #333333;
-  --ant-text-color-secondary: #666666;
-  --ant-border-color-base: #ddd;
-  --ant-background-color-secondary: #f0f0f0;
-  --ant-component-background: #ffffff;
-  --ant-border-color-split: #e2e8f0;
-  --ant-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Dark theme variables */
-[data-theme="dark"] {
-  --ant-background-color: #1a1a1a;
-  --ant-background-color-secondary: #2d2d2d;
-  --ant-text-color: #ffffff;
-  --ant-text-color-secondary: #b3b3b3;
-  --ant-border-color-base: #404040;
-  --ant-background-color-secondary: #3d3d3d;
-  --ant-component-background: #2d2d2d;
-  --ant-border-color-split: #404040;
-  --ant-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Apply variables to existing classes */
-.appContainer {
-  background-color: var(--ant-background-color);
-  color: var(--ant-text-color);
-}
-
-.toolbarButton {
-  color: var(--ant-text-color);
-  background-color: var(--ant-component-background);
-  border: 1px solid var(--ant-border-color-base);
-}
-
-.toolbarButton:hover {
-  background-color: var(--ant-background-color-secondary);
-  border-color: var(--ant-primary-color);
-  color: var(--ant-primary-color);
-}
-
-.menuItems {
-  background-color: var(--ant-component-background);
-  border: 1px solid var(--ant-border-color-split);
-  box-shadow: var(--ant-box-shadow);
-}
-
-.menuItem {
-  color: var(--ant-text-color);
-}
-
-.menuItem:hover {
-  background-color: var(--ant-background-color-secondary);
-}
-
-.submenu {
-  background-color: var(--ant-component-background);
-  border-color: var(--ant-border-color-split);
-}
-
-/* Editor specific dark mode styles */
-.affinePageViewport[data-theme="dark"] {
-  background-color: var(--ant-background-color);
-}
-
-.affinePageViewport[data-theme="dark"] .inlineEditor {
-  color: var(--ant-text-color);
-}
-
-.affinePageViewport[data-theme="dark"] .blockTitle {
-  color: var(--ant-text-color);
-}
-
-.affinePageViewport[data-theme="dark"] .paragraphText {
-  color: var(--ant-text-color);
-}
-
-.affinePageViewport[data-theme="dark"] .affineParagraphPlaceholder {
-  color: var(--ant-text-color-secondary);
-}
-
-/* Optional: Add transition for smooth theme switching */
-.appContainer,
-.appContainer * {
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.editorContainer {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 60px); /* Adjust based on your toolbar height */
-  position: relative;
-  z-index: 1;
-}
-
-.editorContainer[data-mode="edgeless"] {
-  background-color: var(--background-secondary);
-}
-
-/* Position the edgeless toolbar */
-.edgelessToolbar {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-}
-
-.edgelessToolbarContainer {
-  position: absolute;
-  top: 100%; /* Position it right below debugToolbar */
-  left: 0;
-  width: 100%;
-  z-index: 1;
-  background-color: inherit; /* Match parent background */
-  border-top: 1px solid #e8e8e8; /* Optional: adds separation line */
-  padding: 8px;
-}
-
 .blockContainer {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.blockWrapper {
-  display: flex;
-  align-items: flex-start;
-  padding: 4px 0;
   position: relative;
+  margin: 10px 0;
 }
 
-.dragHandle {
-  cursor: grab;
+.childrenContainer {
+  padding-left: 24px;
+}
+
+.paragraph {
+  background-color: #f9f9f9; /* Light background for paragraphs */
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.richTextWrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 20px; /* Adjust width as needed */
-  height: 100%; /* Full height of the block */
-  margin-right: 8px; /* Space between handle and content */
-  user-select: none; /* Prevent text selection */
-  background-color: #f0f0f0; /* Light background for visibility */
-  border-radius: 4px; /* Rounded corners */
-  transition: background-color 0.2s;
 }
 
-.dragHandleIcon {
-  font-size: 16px; /* Adjust size as needed */
-  color: #888; /* Adjust color as needed */
-  opacity: 0; /* Make icon invisible by default */
-  transition: opacity 0.2s, color 0.2s;
-  user-select: none;
+.inlineEditor {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc; /* Border for editable area */
 }
 
-.dragHandle:hover {
-  background-color: #e0e0e0; /* Darker background on hover */
+.placeholder {
+  color: #aaa; /* Placeholder text color */
 }
 
-.blockWrapper:hover .dragHandleIcon {
-  opacity: 1; /* Make icon visible on hover */
-  color: #555; /* Darker color on hover */
-}
-
-.blockWrapper:hover .dragHandle {
-  opacity: 1;
-}
-
-.blockContent {
-  flex: 1;
-  min-height: 24px;
-  outline: none;
-  padding: 2px 0;
-}
-
-.blockContent:focus {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-/* Dark mode styles */
-.darkMode .blockContent:focus {
-  background-color: rgba(255, 255, 255, 0.04);
-}
-
-.darkMode .dragHandle {
-  color: #666;
-}
-
-.affineDragHandle {
-  position: absolute;
-  left: -24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 16px;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.2s;
-  cursor: grab;
-}
-
-.blockWrapper {
-  position: relative;
-  padding: 4px 0;
-  margin-left: 24px; /* Make space for the drag handle */
-}
-
-.blockWrapper:hover .affineDragHandle {
-  opacity: 1;
-}
-
-.dragHandleGrabber {
-  width: 4px;
-  height: 16px;
-  border-radius: 4px;
-  background-color: rgb(var(--affine-text-primary-color, 84, 84, 84));
-  opacity: 0.45;
-}
-
-.affineDragHandle:hover .dragHandleGrabber {
-  opacity: 0.85;
-}
-
-/* Dark mode adjustments */
-.darkMode .dragHandleGrabber {
-  background-color: rgb(var(--affine-text-primary-color, 229, 229, 229));
-}
-
-/* When dragging */
-.blockWrapper.dragging .affineDragHandle {
-  opacity: 0;
-}
-
-/* Add a hover indicator */
-.blockWrapper:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-}
-
-.darkMode .blockWrapper:hover {
-  background-color: rgba(255, 255, 255, 0.03);
-}
-.editorWrapper {
-  width: 100%;
-  height: 100%;
-  max-width: 2560px;
-  margin: 1rem auto;
-  padding: 0 1rem;
+.heading {
+  font-size: 1.5em; /* Adjust heading size */
+  margin-bottom: 10px;
 }
 
 .dragWrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: 8px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dragWrapper:hover .iconContainer {
+  opacity: 1;
+}
+
+.addIcon {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.addIcon:hover {
+  background-color: var(--affine-hover-color);
 }
 
 .dragHandle {
+  cursor: grab;
+  width: 24px;
+  height: 24px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-right: 8px;
-  height: 1.5rem;
+  justify-content: center;
+  border-radius: 4px;
 }
 
-/* Ensure drag content takes available space */
-.dragContent {
-  flex-grow: 1;
-  line-height: 1.5rem;
+.dragHandle:hover {
+  background-color: var(--affine-hover-color);
 }
 
-.mainContainer {
-  height: 100%;
+/* AFFiNE Editor Styles */
+:global(.affine-page-root-block-container) {
   width: 100%;
-  max-width: 2560px;
-  background-color: transparent;
-  padding: 1rem;
+  height: 100%;
 }
 
-@media (min-width: 640px) {
-  .mainContainer {
-    border-radius: 0.5rem;
-  }
-
-  .editor {
-    font-family: var(--font-default);
-    max-width: 100%;
-    outline: none;
-    padding: 1rem;
-  }
-
-  .editor:focus {
-    outline: none;
-  }
-
-  .link {
-    color: var(--muted-foreground);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  .link:hover {
-    color: var(--primary-color);
-  }
-
-  .divider {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    border-top: 1px solid var(--muted-foreground);
-  }
-
-  .taskList {
-    list-style: none;
-    padding-left: 0.5rem;
-  }
-
-  .taskItem {
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-    margin: 1rem 0;
-  }
-
-  /* Add these CSS variables to your :root or body */
-  :root {
-    --accent-color: #f4f4f5;
-    --muted-foreground: #71717a;
-    --background: #ffffff;
-    --muted-color: #e4e4e7;
-    --primary-color: #18181b;
-    --font-default: system-ui, -apple-system, sans-serif;
-  }
-
-  /* Dark mode support */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --accent-color: #27272a;
-      --muted-foreground: #a1a1aa;
-      --background: #18181b;
-      --muted-color: #27272a;
-      --primary-color: #fafafa;
-    }
-  }
-
-  /* Prose styles for the editor */
-  .editor h2 {
-    font-size: 1.875rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  .editor h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
-
-  .editor p {
-    margin-bottom: 1rem;
-    line-height: 1.75;
-  }
-
-  .editor pre {
-    background-color: var(--accent-color);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin: 1rem 0;
-    overflow-x: auto;
-  }
-
-  .editor code {
-    font-family: monospace;
-  }
-
-  /* For smaller screens */
-  @media (max-width: 639px) {
-    .editorWrapper {
-      margin: 1rem auto;
-      padding: 0 1rem;
-    }
-
-    .mainContainer {
-      padding: 3rem 1.5rem 1.5rem;
-    }
-  }
-
-  /* Drag handle styles */
-  .dragWrapper {
-    position: relative;
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-    padding: 0.25rem 0;
-  }
-
-  .dragHandle {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    opacity: 0;
-    cursor: grab;
-    transition: opacity 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted-foreground);
-  }
-
-  .dragWrapper:hover .dragHandle {
-    opacity: 1;
-  }
-
-  .dragHandle:active {
-    cursor: grabbing;
-  }
-
-  .dragContent {
-    flex: 1;
-    min-width: 0;
-  }
-
-  /* Dragging states */
-  .dragWrapper.dragging {
-    opacity: 0.5;
-    background: var(--accent-color);
-    border-radius: 0.25rem;
-  }
-
-  .dragWrapper.dragging .dragHandle {
-    opacity: 1;
-    cursor: grabbing;
-  }
-
-  /* Drag placeholder */
-  .dragPlaceholder {
-    height: 2px;
-    background-color: var(--primary-color);
-    margin: 4px 0;
-    border-radius: 1px;
-    position: relative;
-  }
-
-  .dragPlaceholder::before {
-    content: "";
-    position: absolute;
-    left: -4px;
-    top: -3px;
-    width: 8px;
-    height: 8px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-  }
+:global(.affine-note-block-container) {
+  width: 100%;
 }
 
-.bubbleMenu {
+:global(.affine-block-children-container) {
+  width: 100%;
+}
+
+:global(.affine-block-component.light) {
+  --affine-paragraph-margin: 10px 0;
+}
+
+:global(.affine-paragraph-block-container) {
+  width: 100%;
+}
+
+:global(.affine-paragraph-rich-text-wrapper) {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+:global(.inline-editor) {
+  width: 100%;
+  outline: none;
+  min-height: 1em;
+  white-space: pre-wrap;
+  word-break: break-word;
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-line-break: after-white-space;
+  -ms-line-break: normal;
+  line-break: auto;
+}
+
+:global(.affine-paragraph-placeholder) {
+  position: absolute;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: var(--affine-placeholder-color);
+  opacity: 0;
+  top: 0;
+  left: 0;
+  transition: opacity 0.2s ease;
+}
+
+:global(.affine-paragraph-placeholder.visible) {
+  opacity: 0.5;
+}
+
+:global(v-line) {
+  display: block;
+  width: 100%;
+}
+
+:global(v-text span) {
+  word-break: break-word;
+  text-wrap: wrap;
+  white-space-collapse: break-spaces;
+}
+
+:global(affine-block-selection) {
+  border-radius: 5px;
+  border-width: 0px;
+  display: none;
+}
+
+/* Dragging styles */
+.dragging {
+  opacity: 0.5;
+}
+
+/* Widget styles */
+:global([data-widget-id]) {
+  position: absolute;
+  pointer-events: none;
+}
+
+:global([data-widget-id].active) {
+  pointer-events: auto;
+}
+
+/* Empty block placeholder */
+:global(.affine-paragraph-rich-text-wrapper:empty::before) {
+  content: "Type '/' for commands";
+  position: absolute;
+  color: var(--affine-placeholder-color);
+  opacity: 0.5;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.affine-block-children-container {
+  position: relative;
   display: flex;
-  gap: 0.5rem;
-  background-color: #fff;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  gap: 8px;
 }
 
-.bubbleMenu button {
-  border: none;
-  background: none;
-  color: #0f172a;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
+.affine-block-component {
+  position: relative;
+  margin: var(--affine-paragraph-margin, 10px 0);
 }
 
-.bubbleMenu button:hover {
-  background-color: #f1f5f9;
+.affine-paragraph-block-container {
+  display: flex;
+  position: relative;
 }
 
-.bubbleMenu button.isActive {
-  color: #2563eb;
-  background-color: #eff6ff;
+.affine-paragraph-rich-text-wrapper {
+  flex: 1;
+  min-width: 0;
+  position: relative;
 }
 
-.debugToolbar .undoButton svg {
-  fill: #ff6347; /* Tomato */
+.affine-paragraph-rich-text-wrapper.text {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-.debugToolbar .redoButton svg {
-  fill: #32cd32; /* LimeGreen */
+.affine-paragraph-rich-text-wrapper.h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
-.debugToolbar .downButton svg {
-  fill: #1e90ff; /* DodgerBlue */
+.inline-editor {
+  outline: none;
+  min-height: 24px;
+  width: 100%;
 }
 
-.debugToolbar .syncButton svg {
-  fill: #ff4500; /* OrangeRed */
+.affine-paragraph-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  color: #8590ae;
+  opacity: 0.6;
+  user-select: none;
 }
 
-.debugToolbar .deleteButton svg {
-  fill: #8a2be2; /* BlueViolet */
-}
-
-.debugToolbar .playButton svg {
-  fill: #ffd700; /* Gold */
-}
-
-.debugToolbar .sunButton svg {
-  fill: #ffa500; /* Orange */
-}
-
-.debugToolbar .moonButton svg {
-  fill: #9370db; /* MediumPurple */
-}
-
-.debugToolbar .playCircleButton svg {
-  fill: #00ced1; /* DarkTurquoise */
-}
-
-.debugToolbar .dragButton svg {
-  fill: #ff1493; /* DeepPink */
-}
-
-/* Remove hover color changes for icons */
-.debugToolbar .toolbarButton:hover svg {
-  fill: inherit; /* Ensure hover does not change icon color */
+/* Only show placeholder when content is empty */
+.inline-editor:not(:empty) + .affine-paragraph-placeholder {
+  display: none;
 }

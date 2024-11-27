@@ -42,22 +42,56 @@
 }
 
 .dragWrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dragWrapper:hover .iconContainer {
+  opacity: 1;
+}
+
+.addIcon {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.addIcon:hover {
+  background-color: var(--affine-hover-color);
 }
 
 .dragHandle {
+  cursor: grab;
+  width: 24px;
+  height: 24px;
   display: flex;
-  justify-content: center;
   align-items: center;
-
-  height: 1.5rem;
+  justify-content: center;
+  border-radius: 4px;
 }
 
-/* Ensure drag content takes available space */
-.dragContent {
-  flex-grow: 1;
-  line-height: 1.5rem;
+.dragHandle:hover {
+  background-color: var(--affine-hover-color);
+}
+
+/* Add this to ensure the content takes up the remaining space */
+.affine-paragraph-block-container {
+  flex: 1;
 }
 
 .mainContainer {
