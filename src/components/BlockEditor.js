@@ -238,8 +238,6 @@ const BlockEditor = () => {
 
   return (
     <div data-theme="light" className={styles.affinePageViewport}>
-      <Toolbarwidget />
-
       <doc-title>
         <div data-block-is-title="true" className={styles.docTitleContainer}>
           <rich-text>
@@ -264,6 +262,7 @@ const BlockEditor = () => {
                             }}
                           >
                             BlockSuite Playground
+                            <Toolbarwidget />
                           </span>
                         </v-text>
                       </span>
