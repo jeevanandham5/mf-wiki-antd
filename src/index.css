@@ -17,3 +17,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.doc-item {
+  padding: 5px;
+}
+
+.doc-item.active,
+.doc-item:hover {
+  background-color: #f0f0f0;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.top-bar button {
+  margin: auto 2px;
+}
+
+.main-content {
+  flex: 1;
+}
