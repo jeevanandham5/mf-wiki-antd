@@ -5,10 +5,15 @@ import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 const Toolbarwidget = () => {
   // Add state to track menu visibility
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isOptionsOpen, setIsOptionsOpen] = React.useState(false);
 
   // Toggle menu handler
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleOptionsClick = () => {
+    setIsOptionsOpen(!isOptionsOpen);
   };
 
   return (
@@ -24,6 +29,7 @@ const Toolbarwidget = () => {
             tabindex="0"
             role="button"
             onClick={handleMenuClick}
+            style={{ display: "flex", alignItems: "center" }}
           >
             {" "}
             {/* Changed class to className */}
@@ -303,6 +309,7 @@ const Toolbarwidget = () => {
             data-last-used="var(--affine-text-highlight-foreground-grey)"
             tabindex="0"
             role="button"
+            style={{ display: "flex", alignItems: "center" }}
           >
             <span
               style={{
@@ -742,7 +749,15 @@ const Toolbarwidget = () => {
         {/* <!----> */}
         <editor-toolbar-separator></editor-toolbar-separator>
         {/* <!--?lit$040396365$--> */}
-        <editor-menu-button style={{ contentPadding: "8px" }}>
+        <editor-menu-button
+          style={{
+            contentPadding: "8px",
+            position: "relative",
+            display: "inline-block",
+          }}
+          data-active={isOptionsOpen}
+          onClick={handleOptionsClick}
+        >
           <div data-size="large" data-orientation="vertical">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -767,7 +782,7 @@ const Toolbarwidget = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+
                   gap: "8px",
                   width: "176px",
                   height: "32px",
@@ -800,7 +815,7 @@ const Toolbarwidget = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+
                   gap: "8px",
                   textAlign: "left",
                   width: "176px",
@@ -839,7 +854,6 @@ const Toolbarwidget = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
 
                   gap: "8px",
                   width: "176px",

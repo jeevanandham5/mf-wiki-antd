@@ -99,6 +99,7 @@
   position: relative;
   top: 150px;
   left: 5px;
+  font-size: 14px;
   background-color: green;
 }
 
@@ -219,4 +220,75 @@
   width: var(--icon-container-width, unset);
   justify-content: var(--justify, unset);
   user-select: none;
+}
+
+/* Menu Button (3 dots) */
+.dotIcon {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.dotIcon:hover {
+  background-color: var(--affine-hover-color, rgba(0, 0, 0, 0.05));
+}
+
+/* Menu Container */
+.menuContainer {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--affine-background-primary, #fff);
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+  padding: 4px;
+  width: 176px; /* Fixed width instead of min-width */
+  z-index: 100;
+  display: none;
+  pointer-events: none;
+}
+
+/* Show menu on button hover or when active */
+editor-menu-button:hover .menuContainer,
+editor-menu-button[data-active="true"] .menuContainer {
+  display: block;
+  pointer-events: auto;
+}
+
+/* Menu Items */
+.menuContainer editor-menu-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  width: 100%;
+  height: 32px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--affine-text-primary-color, #000);
+  transition: background-color 0.2s;
+}
+
+.menuContainer editor-menu-action:hover {
+  background-color: var(--affine-hover-color, rgba(0, 0, 0, 0.05));
+}
+
+/* Delete option specific styling */
+.menuContainer editor-menu-action.delete {
+  color: var(--affine-error-color, #eb4335);
+}
+
+/* Separator */
+.menuContainer editor-toolbar-separator {
+  height: 1px;
+  background-color: var(--affine-border-color, rgba(0, 0, 0, 0.1));
+  margin: 4px 0;
+}
+
+/* Show menu when parent is clicked */
+editor-menu-button[data-active="true"] .menuContainer {
+  display: block;
+  pointer-events: auto;
 }
