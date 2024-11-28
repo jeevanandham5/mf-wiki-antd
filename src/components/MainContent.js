@@ -98,6 +98,9 @@ const DraggableContent = ({
       onDragOver={onDragOver}
     >
       <div className={styles.iconContainer}>
+        <div className={styles.addIcon} onClick={(e) => onAddClick(index, e)}>
+          <IoIosAdd />
+        </div>
         <div className={styles.dragHandle}>
           <DragHandle />
         </div>
@@ -216,43 +219,55 @@ const MainContent = () => {
             className={styles.customTable}
             columns={[
               {
-                title: "Name",
+                title: "Team Member",
                 dataIndex: "name",
                 key: "name",
               },
               {
-                title: "Age",
-                dataIndex: "age",
-                key: "age",
+                title: "Role",
+                dataIndex: "role",
+                key: "role",
               },
               {
-                title: "Address",
-                dataIndex: "address",
-                key: "address",
+                title: "Department",
+                dataIndex: "department",
+                key: "department",
               },
             ]}
             dataSource={[
               {
                 key: "1",
                 name: "John Brown",
-                age: 32,
-                address: "New York No. 1 Lake Park",
+                role: "Lead Developer",
+                department: "Engineering",
               },
               {
                 key: "2",
                 name: "Jim Green",
-                age: 42,
-                address: "London No. 1 Lake Park",
+                role: "UX Designer",
+                department: "Design",
               },
               {
                 key: "3",
                 name: "Joe Black",
-                age: 32,
-                address: "Sidney No. 1 Lake Park",
+                role: "Product Manager",
+                department: "Product",
               },
             ]}
             pagination={false}
             scroll={{ x: "max-content" }}
+            components={{
+              header: {
+                cell: (props) => (
+                  <th
+                    {...props}
+                    style={{
+                      backgroundColor: "#f0f0f0",
+                    }}
+                  />
+                ),
+              },
+            }}
           />
         ),
       },
@@ -264,18 +279,19 @@ const MainContent = () => {
       },
       {
         id: "code-block",
+        title: "Code Block",
         content: (
           <pre>
             <code>
-              <div>
-                <h2>Welcome to InnovateTech</h2>
-                <p>
-                  At InnovateTech, we are revolutionizing the way businesses
-                  leverage technology to drive growth and efficiency. Our
-                  mission is to empower companies with cutting-edge solutions
-                  that streamline operations and enhance productivity.
-                </p>
-              </div>
+              {`<div>
+  <h2>Welcome to InnovateTech</h2>
+  <p>
+    At InnovateTech, we are revolutionizing the way businesses
+    leverage technology to drive growth and efficiency. Our
+    mission is to empower companies with cutting-edge solutions
+    that streamline operations and enhance productivity.
+  </p>
+</div>`}
             </code>
           </pre>
         ),
@@ -644,7 +660,7 @@ const MainContent = () => {
                 onClick={toggleEditorMode}
                 title="Switch Editor Mode"
               >
-                🔁
+                <SyncOutlined />
               </button>
               {editorMode === "edgeless" && <EdgelessToolbar />}
               <affine-editor-container
