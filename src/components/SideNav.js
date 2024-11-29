@@ -59,12 +59,30 @@ const SideNav = ({ onItemClick, currentPath }) => {
     data.map((item, index) => ({
       key: `${prefix}-${index}`,
       icon: (
-        <div className={styles.menuIcon}>
+        <div
+          className={styles.menuIcon}
+          onMouseEnter={() => handleItemHover(`${prefix}-${index}`)}
+          onMouseLeave={handleItemLeave}
+        >
           {hoveredSection === `${prefix}-${index}` ? (
-            <DownOutlined
-              className={styles.submenuArrow}
-              rotate={clickedSection === `${prefix}-${index}` ? 180 : 0}
-            />
+            <span
+              role="img"
+              aria-label="down"
+              className="anticon anticon-down"
+              style={{ marginRight: "8px", display: "inline-block" }}
+            >
+              <svg
+                viewBox="64 64 896 896"
+                focusable="false"
+                data-icon="down"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path>
+              </svg>
+            </span>
           ) : (
             <span className={styles.itemIcon}>{item.icon}</span>
           )}
@@ -75,11 +93,13 @@ const SideNav = ({ onItemClick, currentPath }) => {
           className={styles.menuItemContainer}
           onMouseEnter={() => handleItemHover(`${prefix}-${index}`)}
           onMouseLeave={handleItemLeave}
+          style={{ display: "flex", alignItems: "center" }}
         >
           <span
             className={styles.menuItemText}
             style={{
               display: "flex",
+              alignItems: "center",
               color: "inherit",
               textDecoration: "none",
               userSelect: "none",
@@ -89,31 +109,52 @@ const SideNav = ({ onItemClick, currentPath }) => {
               borderRadius: "6px",
               marginLeft: "0px",
               fontSize: "14px",
-            }}
-            onClick={() => {
-              navigate(item.path);
-              handleItemClick(`${prefix}-${index}`);
+              margin: "0",
             }}
           >
             {item.name}
           </span>
+          <DownOutlined
+            className={styles.submenuArrow}
+            rotate={clickedSection === `${prefix}-${index}` ? 180 : 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleItemClick(`${prefix}-${index}`);
+            }}
+          />
         </div>
       ),
       children: item.submenu?.map((subItem, subIndex) => ({
         key: `${prefix}-${index}-${subIndex}`,
         icon: (
-          <span
-            className={styles.submenuIcon}
-            style={{ color: "yourColorHere" }}
+          <div
+            onMouseEnter={() =>
+              handleItemHover(`${prefix}-${index}-${subIndex}`)
+            }
+            onMouseLeave={handleItemLeave}
           >
-            {subItem.icon}
-          </span>
+            {hoveredSection === `${prefix}-${index}-${subIndex}` ? (
+              <DownOutlined
+                className={styles.submenuArrow}
+                rotate={
+                  clickedSection === `${prefix}-${index}-${subIndex}` ? 180 : 0
+                }
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleItemClick(`${prefix}-${index}-${subIndex}`);
+                }}
+              />
+            ) : (
+              <span className={styles.submenuIcon}>{subItem.icon}</span>
+            )}
+          </div>
         ),
         label: (
           <span
             className={styles.menuItemText}
             style={{
               display: "flex",
+              alignItems: "center",
               color: "inherit",
               textDecoration: "none",
               userSelect: "none",
@@ -123,6 +164,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
               borderRadius: "6px",
               marginLeft: "0px",
               fontSize: "14px",
+              margin: "0",
             }}
             onClick={() => navigate(subItem.path)}
           >
@@ -194,14 +236,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
         </div>
 
         {/* Top Navigation Menu */}
-        <Menu
-          mode="inline"
-          style={{
-            borderRight: 0,
-            ".ant-menu-submenu-arrow": { display: "none" },
-          }}
-          items={topItems}
-        />
+        <Menu mode="inline" className={styles.customMenu} items={topItems} />
         <div className={styles.workspaceHeading}>
           <h4
             style={{
