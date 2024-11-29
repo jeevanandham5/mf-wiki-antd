@@ -22,6 +22,19 @@ const SideNav = ({ onItemClick, currentPath }) => {
   });
   const [selectedTitle, setSelectedTitle] = useState("");
   const [activeItem, setActiveItem] = useState(null);
+  const [hoveredSection, setHoveredSection] = useState(null);
+  const [clickedSection, setClickedSection] = useState(null);
+  const handleItemHover = (sectionId) => {
+    setHoveredSection(sectionId);
+  };
+
+  const handleItemLeave = () => {
+    setHoveredSection(null);
+  };
+
+  const handleItemClick = (sectionId) => {
+    setClickedSection((prev) => (prev === sectionId ? null : sectionId));
+  };
 
   const {
     token: { colorBgContainer },
@@ -42,96 +55,77 @@ const SideNav = ({ onItemClick, currentPath }) => {
     setIsModalOpen(true);
   };
 
-  const handleItemClick = (item) => {
-    setActiveItem(item);
-    onItemClick && onItemClick(item);
-  };
-
-  // Convert NavDatatop to Ant Design menu items format
-  const topItems = NavDatatop.map((item, index) => ({
-    key: `top${index}`,
-    icon: <>{item.icon}</>,
-    label: (
-      <div className={styles.menuItemContainer}>
-        <span className={styles.menuItemText}>{item.name}</span>
-        <div
-          onMouseEnter={() =>
-            setHoveredButton({ sectionId: "top", buttonId: index })
-          }
-          onMouseLeave={() =>
-            setHoveredButton({ sectionId: null, buttonId: null })
-          }
-          onClick={(e) => handleAddClick("top", index, e)}
-          className={`${styles.addIconContainer} ${
-            hoveredButton.sectionId === "top" &&
-            hoveredButton.buttonId === index
-              ? styles.hovered
-              : ""
-          }`}
-        >
-          <IoIosAdd size={20} color="#B0B0B0" />
+  const generateMenuItems = (data, prefix) =>
+    data.map((item, index) => ({
+      key: `${prefix}-${index}`,
+      icon: (
+        <div className={styles.menuIcon}>
+          {hoveredSection === `${prefix}-${index}` ? (
+            <DownOutlined
+              className={styles.submenuArrow}
+              rotate={clickedSection === `${prefix}-${index}` ? 180 : 0}
+            />
+          ) : (
+            <span className={styles.itemIcon}>{item.icon}</span>
+          )}
         </div>
-      </div>
-    ),
-  }));
-
-  // Convert NavdataBottom to Ant Design menu items format
-
-  // ... existing code ...
-
-  const items2 = NavdataBottom.map((item, index) => ({
-    key: `sub${index + 1}`,
-    icon: item.icon,
-    label: (
-      <div className={styles.menuItemContainer}>
-        <span
-          className={styles.menuItemText}
-          onClick={() => {
-            navigate(item.path);
-            handleItemClick(item);
-          }}
-        >
-          {item.name}
-        </span>
-      </div>
-    ),
-    children: item.submenu.map((subItem, subIndex) => ({
-      key: `${index}-${subIndex}`,
+      ),
       label: (
-        <div className={styles.menuItemContainer}>
+        <div
+          className={styles.menuItemContainer}
+          onMouseEnter={() => handleItemHover(`${prefix}-${index}`)}
+          onMouseLeave={handleItemLeave}
+        >
           <span
             className={styles.menuItemText}
-            onClick={() => {
-              navigate(subItem.path);
-              handleItemClick(subItem);
+            style={{
+              display: "flex",
+              color: "inherit",
+              textDecoration: "none",
+              userSelect: "none",
+              transition: "background 150ms",
+              cursor: "pointer",
+              width: "100%",
+              borderRadius: "6px",
+              marginLeft: "0px",
+              fontSize: "14px",
             }}
+            onClick={() => {
+              navigate(item.path);
+              handleItemClick(`${prefix}-${index}`);
+            }}
+          >
+            {item.name}
+          </span>
+        </div>
+      ),
+      children: item.submenu?.map((subItem, subIndex) => ({
+        key: `${prefix}-${index}-${subIndex}`,
+        label: (
+          <span
+            className={styles.menuItemText}
+            style={{
+              display: "flex",
+              color: "inherit",
+              textDecoration: "none",
+              userSelect: "none",
+              transition: "background 150ms",
+              cursor: "pointer",
+              width: "100%",
+              borderRadius: "6px",
+              marginLeft: "0px",
+              fontSize: "14px",
+            }}
+            onClick={() => navigate(subItem.path)}
           >
             {subItem.name}
           </span>
-          <div
-            onMouseEnter={() =>
-              setHoveredButton({
-                sectionId: `${index}-${subIndex}`,
-                buttonId: subIndex,
-              })
-            }
-            onMouseLeave={() =>
-              setHoveredButton({ sectionId: null, buttonId: null })
-            }
-            onClick={(e) => handleAddClick("subItem", subIndex, e)}
-            className={`${styles.addIconContainer} ${
-              hoveredButton.sectionId === `${index}-${subIndex}`
-                ? styles.hovered
-                : ""
-            }`}
-          >
-            <IoIosAdd size={20} color="#B0B0B0" />
-          </div>
-        </div>
-      ),
-      icon: subItem.icon,
-    })),
-  }));
+        ),
+      })),
+    }));
+
+  const items2 = generateMenuItems(NavdataBottom, "bottom");
+  const topItems = generateMenuItems(NavDatatop, "top");
 
   return (
     <Sider
@@ -193,33 +187,44 @@ const SideNav = ({ onItemClick, currentPath }) => {
         </div>
 
         {/* Top Navigation Menu */}
-        <Menu mode="inline" style={{ borderRight: 0 }} items={topItems} />
+        <Menu
+          mode="inline"
+          style={{
+            borderRight: 0,
+            ".ant-menu-submenu-arrow": { display: "none" },
+          }}
+          items={topItems}
+        />
+        <div className={styles.workspaceHeading}>
+          <h4
+            style={{
+              marginBottom: "0px",
+              padding: "7px",
+              display: "flex",
+              alignItems: "center",
+              textAlign: "left",
+            }}
+          >
+            Workspace
+          </h4>
+        </div>
       </div>
 
       {/* Scrollable Content */}
       <div className={styles.scrollableContent}>
         {/* Workspace Section */}
         <div className={styles.workspaceSection}>
-          <div className={styles.workspaceHeading}>
-            <h3
-              style={{
-                marginTop: "38px",
-                marginBottom: "0px",
-                padding: "7px",
-                display: "flex",
-                alignItems: "center",
-                textAlign: "left",
-              }}
-            >
-              Workspace
-            </h3>
-          </div>
           <div className={styles.workspaceMenu}>
             <Menu
               mode="inline"
               defaultSelectedKeys={["1"]}
               defaultOpenKeys={["sub1"]}
-              style={{ height: "100%", borderRight: 0 }}
+              style={{
+                height: "100%",
+                borderRight: 0,
+                padding: "0px",
+                ".ant-menu-submenu-arrow": { display: "none" },
+              }}
               items={items2}
             />
           </div>
