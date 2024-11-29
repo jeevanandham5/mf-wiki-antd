@@ -101,6 +101,14 @@ const SideNav = ({ onItemClick, currentPath }) => {
       ),
       children: item.submenu?.map((subItem, subIndex) => ({
         key: `${prefix}-${index}-${subIndex}`,
+        icon: (
+          <span
+            className={styles.submenuIcon}
+            style={{ color: "yourColorHere" }}
+          >
+            {subItem.icon}
+          </span>
+        ),
         label: (
           <span
             className={styles.menuItemText}
@@ -156,7 +164,6 @@ const SideNav = ({ onItemClick, currentPath }) => {
                     <Button
                       type="text"
                       style={{
-                        padding: "4px",
                         height: "auto",
                         fontWeight: "bold",
                         display: "flex",
@@ -180,7 +187,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
           <Input
             placeholder="Search"
             className={styles.searchInput}
-            style={{ outline: "none", fontSize: "16px" }}
+            style={{ outline: "none", fontSize: "14px" }}
             prefix={<SearchOutlined />}
             aria-label="Search"
           />
@@ -199,10 +206,11 @@ const SideNav = ({ onItemClick, currentPath }) => {
           <h4
             style={{
               marginBottom: "0px",
-              padding: "7px",
               display: "flex",
               alignItems: "center",
               textAlign: "left",
+              fontSize: "12px",
+              color: "rgb(145, 145, 142)",
             }}
           >
             Workspace
@@ -222,7 +230,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
               style={{
                 height: "100%",
                 borderRight: 0,
-                padding: "0px",
+                paddingLeft: "0px",
                 ".ant-menu-submenu-arrow": { display: "none" },
               }}
               items={items2}
