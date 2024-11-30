@@ -19,8 +19,10 @@ import {
   FaMedkit,
 } from "react-icons/fa";
 // Define sizes for the icons
-const iconsize = 20; // Default size for main navigation icons
-const submenuicon = 20; // Size for submenu icons
+const iconsize = 15; // Default size for main navigation icons
+const submenuicon = 15; // Size for submenu icons
+// Define styles for submenu items
+const submenuStyle = { marginLeft: "0px", paddingLeft: "0px" }; // Dynamic style for submenu items
 // Define the top-level navigation items
 export const NavDatatop = [
   {
@@ -50,6 +52,7 @@ export const NavdataBottom = [
         name: "Company home",
         icon: <FaHome size={submenuicon} color="#FF5630" />,
         path: "/my-private-channel/company-home",
+        style: submenuStyle, // Use dynamic style
       },
     ],
   },
@@ -62,6 +65,7 @@ export const NavdataBottom = [
         name: "Benefits",
         icon: <FaMedkit size={submenuicon} color="#00B8D9" />,
         path: "/admin-finance/benefits",
+        style: submenuStyle, // Use dynamic style
       },
     ],
   },
