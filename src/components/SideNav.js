@@ -24,6 +24,8 @@ const SideNav = ({ onItemClick, currentPath }) => {
   const [activeItem, setActiveItem] = useState(null);
   const [hoveredSection, setHoveredSection] = useState(null);
   const [clickedSection, setClickedSection] = useState(null);
+  const [openKeys, setOpenKeys] = useState([]);
+
   const handleItemHover = (sectionId) => {
     setHoveredSection(sectionId);
   };
@@ -55,6 +57,14 @@ const SideNav = ({ onItemClick, currentPath }) => {
     setIsModalOpen(true);
   };
 
+  const handleToggleSubmenu = (key) => {
+    setOpenKeys((prevKeys) =>
+      prevKeys.includes(key)
+        ? prevKeys.filter((k) => k !== key)
+        : [...prevKeys, key]
+    );
+  };
+
   const generateMenuItems = (data, prefix) =>
     data.map((item, index) => ({
       key: `${prefix}-${index}`,
@@ -71,17 +81,15 @@ const SideNav = ({ onItemClick, currentPath }) => {
               className="anticon anticon-down"
               style={{ marginRight: "8px", display: "inline-block" }}
             >
-              <svg
-                viewBox="64 64 896 896"
-                focusable="false"
-                data-icon="down"
-                width="1em"
-                height="1em"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path>
-              </svg>
+              <DownOutlined
+                className={styles.submenuArrow}
+                rotate={clickedSection === `${prefix}-${index}` ? 180 : 0}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleToggleSubmenu(`${prefix}-${index}`);
+                  handleItemClick(`${prefix}-${index}`);
+                }}
+              />
             </span>
           ) : (
             <span className={styles.itemIcon}>{item.icon}</span>
@@ -103,25 +111,17 @@ const SideNav = ({ onItemClick, currentPath }) => {
               color: "inherit",
               textDecoration: "none",
               userSelect: "none",
-              transition: "background 150ms",
+              transition: "none",
               cursor: "pointer",
               width: "100%",
               borderRadius: "6px",
               marginLeft: "0px",
               fontSize: "14px",
-              margin: "0",
+              padding: "8px 0",
             }}
           >
             {item.name}
           </span>
-          <DownOutlined
-            className={styles.submenuArrow}
-            rotate={clickedSection === `${prefix}-${index}` ? 180 : 0}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleItemClick(`${prefix}-${index}`);
-            }}
-          />
         </div>
       ),
       children: item.submenu?.map((subItem, subIndex) => ({
@@ -141,6 +141,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
                 }
                 onClick={(e) => {
                   e.stopPropagation();
+                  handleToggleSubmenu(`${prefix}-${index}-${subIndex}`);
                   handleItemClick(`${prefix}-${index}-${subIndex}`);
                 }}
               />
@@ -158,13 +159,13 @@ const SideNav = ({ onItemClick, currentPath }) => {
               color: "inherit",
               textDecoration: "none",
               userSelect: "none",
-              transition: "background 150ms",
+              transition: "none",
               cursor: "pointer",
               width: "100%",
               borderRadius: "6px",
               marginLeft: "0px",
               fontSize: "14px",
-              margin: "0",
+              padding: "8px 0",
             }}
             onClick={() => navigate(subItem.path)}
           >

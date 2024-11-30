@@ -14,7 +14,6 @@
   width: 250px;
   display: flex;
   flex-direction: column;
-
   box-sizing: border-box;
   font-size: 14px;
 }
@@ -189,7 +188,6 @@ div.ant-menu-submenu-title {
 .menuItemText {
   flex: 1;
   overflow: hidden;
-
   white-space: nowrap;
 }
 
@@ -227,7 +225,6 @@ div.ant-menu-submenu-title {
   border-radius: 6px;
   margin-left: 0px;
   font-size: 14px;
-  background-color: yellow;
 }
 /* src/styles/SideNav.module.css */
 .SideNav .ant-menu-item {
@@ -246,7 +243,6 @@ div.ant-menu-submenu-title {
   padding: 0px;
   padding-left: 0px;
   border-radius: 6px;
-  background-color: green;
 }
 
 :global(.ant-menu-item-icon) {
