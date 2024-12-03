@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { Doc } from "@blocksuite/store";
-import { useEditor } from "../Blocksuite editor/EditorProvider";
+import { useEditor } from "./editor/context";
 
 const Sidebar = () => {
-  const { collection, editor } = useEditor();
-  const [docs, setDocs] = useState([]);
+  const { collection, editor } = useEditor()!;
+  const [docs, setDocs] = useState<Doc[]>([]);
 
   useEffect(() => {
     if (!collection || !editor) return;
     const updateDocs = () => {
-      const updatedDocs = [...collection.docs.values()].map((blocks) =>
+      const docs = [...collection.docs.values()].map((blocks) =>
         blocks.getDoc()
       );
-      setDocs(updatedDocs);
+      setDocs(docs);
     };
     updateDocs();
 
@@ -33,10 +33,11 @@ const Sidebar = () => {
             className={`doc-item ${editor?.doc === doc ? "active" : ""}`}
             key={doc.id}
             onClick={() => {
-              if (editor) {
-                editor.doc = doc;
-                updateDocs();
-              }
+              if (editor) editor.doc = doc;
+              const docs = [...collection.docs.values()].map((blocks) =>
+                blocks.getDoc()
+              );
+              setDocs(docs);
             }}
           >
             {doc.meta?.title || "Untitled"}

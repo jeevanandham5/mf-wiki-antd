@@ -3,9 +3,9 @@ import React from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import SideNav from "./components/SideNav";
 import styles from "./components/styles/App.module.css";
+import { EditorProvider } from "./components/Blocksuite_editor/EditorProvider";
 
-import { EditorProvider } from "./components/Blocksuite editor/EditorProvider";
-import EditorContainer from "./components/Blocksuite editor/EditorContainer";
+import EditorContainer from "./components/Blocksuite_editor/EditorContainer";
 
 const App = () => {
   console.log("hello world");
@@ -16,7 +16,7 @@ const App = () => {
         <Router>
           <div className={styles.Container}>
             <div className={styles.contentWrapper}>
-              <SideNav />
+              {/* <SideNav /> */}
               <Routes>
                 <Route path="/" element={<EditorContainer />} />
                 <Route path="/:section" element={<EditorContainer />} />

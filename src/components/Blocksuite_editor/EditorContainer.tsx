@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from "react";
-import { useEditor } from "../Blocksuite editor/EditorProvider";
+import React from "react";
+import { useEffect, useRef } from "react";
+import { useEditor } from "./editor/context";
 import styles from "./EditorContainer.module.css";
 
-const EditorContainer = () => {
-  const { editor } = useEditor(); // Removed non-null assertion
+const EditorContainer: React.FC = () => {
+  const { editor } = useEditor()!;
 
-  const editorContainerRef = useRef(null); // Changed type annotation to be compatible with JavaScript
+  const editorContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (editorContainerRef.current && editor) {
