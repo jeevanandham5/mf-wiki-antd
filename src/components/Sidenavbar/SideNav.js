@@ -4,10 +4,10 @@ import { SearchOutlined, DownOutlined } from "@ant-design/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
 import { MdPlayArrow } from "react-icons/md";
-import styles from "./styles/SideNav.module.css";
-import { NavdataBottom, NavDatatop } from "./navdata";
-import workspaces from "../data/workspaces";
-import AddPageModal from "./AddPageModal";
+import styles from "../styles/SideNav.module.css";
+import { NavdataBottom, NavDatatop } from "../navdata";
+import workspaces from "../../data/workspaces";
+import AddPageModal from "../../components/AddPageModal";
 import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;

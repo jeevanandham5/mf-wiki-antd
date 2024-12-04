@@ -6,9 +6,7 @@ import React from "react";
 const TopBar: React.FC = () => (
   <div
     style={{ padding: "10px", backgroundColor: "#f0f0f0", textAlign: "center" }}
-  >
-    React Basic
-  </div>
+  ></div>
 );
 
 export default TopBar;
