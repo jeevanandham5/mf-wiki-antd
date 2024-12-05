@@ -9,7 +9,10 @@ import { NavdataBottom, NavDatatop } from "../navdata";
 import workspaces from "../../data/workspaces";
 import AddPageModal from "../../components/AddPageModal";
 import { useNavigate } from "react-router-dom";
-
+import { MenuDropdown } from "../Sidenav_rightsidepluspageicons/MenuDropdown/MenuDropdown";
+import { PageCreator } from "../Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
+import { useDocumentStore } from "../Sidenav_rightsidepluspageicons/store/documentStore";
+import toast from "react-hot-toast";
 const { Sider } = Layout;
 
 const SideNav = ({ onItemClick, currentPath }) => {
@@ -20,6 +23,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
     sectionId: null,
     buttonId: null,
   });
+  const { currentDocument } = useDocumentStore();
   const [selectedTitle, setSelectedTitle] = useState("");
   const [activeItem, setActiveItem] = useState(null);
   const [hoveredSection, setHoveredSection] = useState(null);
@@ -122,6 +126,19 @@ const SideNav = ({ onItemClick, currentPath }) => {
           >
             {item.name}
           </span>
+          <div
+            className={styles.pageIcons}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              outline: "none",
+
+              background: "red",
+            }}
+          >
+            <MenuDropdown style={{ fontSize: "10px" }} />
+            <PageCreator style={{ fontSize: "10px" }} />
+          </div>
         </div>
       ),
       children: item.submenu?.map((subItem, subIndex) => ({

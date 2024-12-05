@@ -141,7 +141,13 @@ div.ant-menu-submenu-title {
   scrollbar-width: thin;
   scrollbar-color: #b0b0b0;
 }
-
+/* src/styles/SideNav.module.css */
+.pageIcons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+}
 /* WebKit scrollbar styles */
 .scrollableContent::-webkit-scrollbar {
   width: 8px; /* Width of the scrollbar */
