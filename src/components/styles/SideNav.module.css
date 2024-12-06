@@ -104,10 +104,6 @@ button.css-1qz0cxr {
   background-color: #0052cc; /* Darker blue on hover */
 }
 
-.icon {
-  margin-right: 10px;
-}
-
 a {
   text-decoration: none;
   color: inherit;
@@ -115,7 +111,7 @@ a {
 }
 
 .subSection {
-  margin-left: 20px;
+  margin-left: 0px;
   font-size: 14px;
 }
 
@@ -124,9 +120,8 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  background: white; /* or whatever your background color is */
+  background: transparent;
   z-index: 100;
-  padding: 6px;
 }
 div.ant-menu-submenu-title {
   padding-left: 0px !important;
@@ -137,15 +132,17 @@ div.ant-menu-submenu-title {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow-y: auto;
+   {
+    /*overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #b0b0b0;
+  scrollbar-color: #b0b0b0;*/
+  }
 }
 /* src/styles/SideNav.module.css */
 .pageIcons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
   font-size: 10px;
 }
 /* WebKit scrollbar styles */
@@ -170,13 +167,12 @@ div.ant-menu-submenu-title {
 .workspaceSection {
   top: 230px;
   position: relative;
-  height: 100%; /* Ensures it fills the available height */
-  overflow: hidden; /* Prevents scrolling outside the section */
+  height: 100%;
+  overflow: hidden;
 }
 
 .workspaceMenu {
-  /* Adjust this value to match the height of .workspaceHeading */
-  height: calc(100% - 60px); /* Subtract the height of the fixed header */
+  height: calc(100% - 60px);
 }
 
 .menuItemContainer {
@@ -184,13 +180,15 @@ div.ant-menu-submenu-title {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 0 4px;
+  padding: 0px;
   min-height: 32px;
   font-size: 14px;
   margin-left: 0px;
   margin-right: 0px;
 }
-
+li.ant-menu-submenu.ant-menu-submenu-inline {
+  padding-left: 0px;
+}
 .menuItemText {
   flex: 1;
   overflow: hidden;

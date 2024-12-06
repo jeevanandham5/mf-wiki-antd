@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, theme, Input, Dropdown, Button, Space } from "antd";
+import {
+  Layout,
+  Menu,
+  theme,
+  Input,
+  Dropdown,
+  Button,
+  Space,
+  ConfigProvider,
+} from "antd";
+import {
+  AppstoreOutlined,
+  HomeOutlined,
+  MailOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import { SearchOutlined, DownOutlined } from "@ant-design/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
 import { MdPlayArrow } from "react-icons/md";
 import styles from "../styles/SideNav.module.css";
-import { NavdataBottom, NavDatatop } from "../navdata";
+import { NavdataBottom, NavDatatop, newNavData } from "../navdata";
 import workspaces from "../../data/workspaces";
 import AddPageModal from "../../components/AddPageModal";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +44,13 @@ const SideNav = ({ onItemClick, currentPath }) => {
   const [hoveredSection, setHoveredSection] = useState(null);
   const [clickedSection, setClickedSection] = useState(null);
   const [openKeys, setOpenKeys] = useState([]);
-
+  const customtheme = {
+    components: {
+      Menu: {
+        itemPadding: 0,
+      },
+    },
+  };
   const handleItemHover = (sectionId) => {
     setHoveredSection(sectionId);
   };
@@ -83,7 +104,9 @@ const SideNav = ({ onItemClick, currentPath }) => {
               role="img"
               aria-label="down"
               className="anticon anticon-down"
-              style={{ marginRight: "8px", display: "inline-block" }}
+              style={{
+                display: "inline-block",
+              }}
             >
               <DownOutlined
                 className={styles.submenuArrow}
@@ -102,42 +125,49 @@ const SideNav = ({ onItemClick, currentPath }) => {
       ),
       label: (
         <div
-          className={styles.menuItemContainer}
-          onMouseEnter={() => handleItemHover(`${prefix}-${index}`)}
-          onMouseLeave={handleItemLeave}
-          style={{ display: "flex", alignItems: "center" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
         >
-          <span
-            className={styles.menuItemText}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              color: "inherit",
-              textDecoration: "none",
-              userSelect: "none",
-              transition: "none",
-              cursor: "pointer",
-              width: "100%",
-              borderRadius: "6px",
-              marginLeft: "0px",
-              fontSize: "14px",
-              padding: "8px 0",
-            }}
-          >
-            {item.name}
-          </span>
           <div
-            className={styles.pageIcons}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              outline: "none",
-
-              background: "red",
-            }}
+            className={styles.menuItemContainer}
+            onMouseEnter={() => handleItemHover(`${prefix}-${index}`)}
+            onMouseLeave={handleItemLeave}
+            style={{ display: "flex", alignItems: "center" }}
           >
-            <MenuDropdown style={{ fontSize: "10px" }} />
-            <PageCreator style={{ fontSize: "10px" }} />
+            <span
+              className={styles.menuItemText}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                color: "inherit",
+                textDecoration: "none",
+                userSelect: "none",
+                transition: "none",
+                cursor: "pointer",
+                width: "100%",
+                borderRadius: "6px",
+                marginLeft: "0px",
+                fontSize: "14px",
+              }}
+            >
+              {item.name}
+              <div
+                className={styles.pageIcons}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  outline: "none",
+                  position: "absolute",
+                  right: "5px",
+                }}
+              >
+                <MenuDropdown style={{ fontSize: "10px" }} />
+                <PageCreator style={{ fontSize: "10px" }} />
+              </div>
+            </span>
           </div>
         </div>
       ),
@@ -197,7 +227,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
 
   return (
     <Sider
-      width={280}
+      width={256}
       style={{
         background: colorBgContainer,
         height: "100%",
@@ -252,14 +282,23 @@ const SideNav = ({ onItemClick, currentPath }) => {
             aria-label="Search"
           />
         </div>
-
+        <ConfigProvider theme={{ compact: true }}>
+          <Menu defaultSelectedKeys={["1"]} mode="inline" items={newNavData} />
+        </ConfigProvider>
         {/* Top Navigation Menu */}
-        <Menu mode="inline" className={styles.customMenu} items={topItems} />
+        <ConfigProvider theme={customtheme}>
+          <Menu
+            mode="inline"
+            style={{ padding: 0, display: "none" }}
+            items={topItems}
+          />
+        </ConfigProvider>
         <div className={styles.workspaceHeading}>
           <h4
             style={{
+              display: "none",
               marginBottom: "0px",
-              display: "flex",
+
               alignItems: "center",
               textAlign: "left",
               fontSize: "12px",
@@ -281,6 +320,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
               defaultSelectedKeys={["1"]}
               defaultOpenKeys={["sub1"]}
               style={{
+                display: "none",
                 height: "100%",
                 borderRight: 0,
                 paddingLeft: "0px",
