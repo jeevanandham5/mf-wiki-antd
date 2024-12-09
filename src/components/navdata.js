@@ -251,6 +251,12 @@ export const newNavData = [
     key: "Workspace",
     label: "Workspace",
     type: "group",
+    style: {
+      scrollbarWidth: "thin",
+      overflowY: "auto",
+      maxHeight: "calc(100vh - 150px)",
+    },
+
     children: [
       {
         key: "My private channel",
