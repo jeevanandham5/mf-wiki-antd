@@ -1,9 +1,12 @@
 import {
   AppstoreOutlined,
+  EllipsisOutlined,
   HomeOutlined,
   MailOutlined,
+  MoreOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import { Button, Modal } from "antd";
 import React from "react";
 import {
   FaHome,
@@ -23,7 +26,10 @@ import {
   FaUserPlus,
   FaGraduationCap,
   FaMedkit,
+  FaPlus,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import PageCreator from "../components/Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
 // Define sizes for the icons
 const iconsize = 15; // Default size for main navigation icons
 const submenuicon = 15; // Size for submenu icons
@@ -227,27 +233,97 @@ export const NavdataBottom = [
   },
 ];
 
+const SectionActions = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const handleAddClick = (e) => {
+    e.stopPropagation();
+    setIsModalOpen(true);
+  };
+
+  return (
+    <>
+      <span
+        style={{
+          display: "flex",
+          alignItems: "center",
+          position: "absolute",
+          right: "5px",
+          gap: "5px",
+        }}
+      >
+        <div role="button" onClick={() => console.log("More options clicked")}>
+          <EllipsisOutlined style={{ color: "#b0b0b0" }} />
+        </div>
+        <div role="button" onClick={handleAddClick}>
+          <FaPlus color="#b0b0b0" fontWeight={"normal"} fontSize={10} />
+        </div>
+      </span>
+
+      <Modal
+        title="Create Page"
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
+        destroyOnClose
+      >
+        <PageCreator onClose={() => setIsModalOpen(false)} />
+      </Modal>
+    </>
+  );
+};
+
+// Function to create a label with actions
+const createLabel = (text) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      position: "relative",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+    }}
+  >
+    <span
+      style={{
+        flexGrow: 1,
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
+      }}
+    >
+      {text}
+    </span>
+
+    <SectionActions />
+  </div>
+);
+
 export const newNavData = [
   {
+    compact: true,
     key: "Home",
-    label: "Home",
+    label: createLabel("Home"),
     icon: <FaHome size={iconsize} color="#36B37E" />,
   },
   {
+    compact: true,
     key: "Uni AI",
-    label: "Uni AI",
+    label: createLabel("Uni AI"),
     icon: <FaComments size={iconsize} color="#00B8D9" />,
   },
-
   {
+    compact: true,
     key: "Inbox",
-    label: "Inbox",
+    label: createLabel("Inbox"),
     icon: <FaShareAlt size={iconsize} color="#6554C0" />,
   },
   {
     type: "divider",
   },
   {
+    compact: true,
     key: "Workspace",
     label: "Workspace",
     type: "group",
@@ -256,184 +332,198 @@ export const newNavData = [
       overflowY: "auto",
       maxHeight: "calc(100vh - 150px)",
     },
-
     children: [
       {
         key: "My private channel",
-        label: "My private channel",
+        label: createLabel("My private channel"),
         icon: <FaHome size={iconsize} color="#FF5630" />,
         children: [
           {
             key: "Company home",
-            label: "Company home",
+            label: createLabel("Company home"),
             icon: <FaHome size={submenuicon} color="#FF5630" />,
           },
         ],
       },
       {
         key: "Admin & finance",
-        label: "Admin & finance",
+        label: createLabel("Admin & finance"),
         icon: <FaChartLine size={iconsize} color="#FF5630" />,
         children: [
           {
             key: "Benefits",
-            label: "Benefits",
+            label: createLabel("Benefits"),
             icon: <FaMedkit size={submenuicon} color="#00B8D9" />,
           },
         ],
       },
       {
         key: "Data",
-        label: "Data",
+        label: createLabel("Data"),
         icon: <FaChartLine size={iconsize} color="#36B37E" />,
         children: [
           {
             key: "Reports",
-            label: "Reports",
+            label: createLabel("Reports"),
             icon: <FaChartLine size={submenuicon} color="#00B8D9" />,
           },
           {
             key: "Analytics",
-            label: "Analytics",
+            label: createLabel("Analytics"),
             icon: <FaBullhorn size={submenuicon} color="#FFAB00" />,
           },
           {
             key: "Data Management",
-            label: "Data Management",
+            label: createLabel("Data Management"),
             icon: <FaDatabase size={submenuicon} color="#6554C0" />,
           },
         ],
       },
       {
         key: "Engineering",
-        label: "Engineering",
+        label: createLabel("Engineering"),
         icon: <FaCogs size={iconsize} color="#00B8D9" />,
         children: [
           {
             key: "Frontend",
-            label: "Frontend",
+            label: createLabel("Frontend"),
             icon: <FaCode size={submenuicon} color="#FF5630" />,
           },
           {
             key: "Backend",
-            label: "Backend",
+            label: createLabel("Backend"),
             icon: <FaDatabase size={submenuicon} color="#36B37E" />,
           },
         ],
       },
       {
         key: "Human Resources",
-        label: "Human Resources",
+        label: createLabel("Human Resources"),
         icon: <FaUsers size={iconsize} color="#FF5630" />,
         children: [
           {
             key: "Recruitment",
-            label: "Recruitment",
+            label: createLabel("Recruitment"),
             icon: <FaUserPlus size={submenuicon} color="#FF5630" />,
           },
           {
             key: "Training",
-            label: "Training",
+            label: createLabel("Training"),
             icon: <FaGraduationCap size={submenuicon} color="#36B37E" />,
           },
           {
             key: "Benefits",
-            label: "Benefits",
+            label: createLabel("Benefits"),
             icon: <FaMedkit size={submenuicon} color="#00B8D9" />,
           },
         ],
       },
       {
         key: "General",
-        label: "General",
+        label: createLabel("General"),
         icon: <FaBriefcase size={iconsize} color="#6554C0" />,
         children: [
           {
             key: "Company home",
-            label: "Company home",
+            label: createLabel("Company home"),
             icon: <FaHome size={submenuicon} color="#FF5630" />,
           },
           {
             key: "The Handbook",
-            label: "The Handbook",
+            label: createLabel("The Handbook"),
             icon: <FaComments size={submenuicon} color="#36B37E" />,
           },
           {
             key: "People & culture",
-            label: "People & culture",
+            label: createLabel("People & culture"),
             icon: <FaUsers size={submenuicon} color="#00B8D9" />,
           },
           {
             key: "Strategy",
-            label: "Strategy",
+            label: createLabel("Strategy"),
             icon: <FaChartLine size={submenuicon} color="#6554C0" />,
           },
           {
             key: "Policies",
-            label: "Policies",
+            label: createLabel("Policies"),
             icon: <FaLock size={submenuicon} color="#FFAB00" />,
           },
         ],
       },
       {
         key: "Marketing",
-        label: "Marketing",
+        label: createLabel("Marketing"),
         icon: <FaBullhorn size={iconsize} color="#36B37E" />,
         children: [
           {
-            key: "Policies",
-            label: "Policies",
-            icon: <FaLock size={submenuicon} color="#FFAB00" />,
+            key: "Campaigns",
+            label: createLabel("Campaigns"),
+            icon: <FaBullhorn size={submenuicon} color="#00B8D9" />,
+          },
+          {
+            key: "Analytics",
+            label: createLabel("Analytics"),
+            icon: <FaChartLine size={submenuicon} color="#FFAB00" />,
+          },
+          {
+            key: "Social Media",
+            label: createLabel("Social Media"),
+            icon: <FaShareAlt size={submenuicon} color="#6554C0" />,
           },
         ],
       },
       {
         key: "Product",
-        label: "Product",
+        label: createLabel("Product"),
         icon: <FaBox size={iconsize} color="#00B8D9" />,
         children: [
           {
             key: "Product Overview",
-            label: "Product Overview",
+            label: createLabel(" Overview"),
             icon: <FaBriefcase size={submenuicon} color="#FF5630" />,
           },
           {
             key: "Product Features",
-            label: "Product Features",
+            label: createLabel(" Features"),
             icon: <FaBullhorn size={submenuicon} color="#36B37E" />,
           },
           {
             key: "Product Roadmap",
-            label: "Product Roadmap",
+            label: createLabel(" Roadmap"),
             icon: <FaChartLine size={submenuicon} color="#00B8D9" />,
           },
         ],
       },
       {
         key: "Sales & CS",
-        label: "Sales & CS",
+        label: createLabel("Sales & CS"),
         icon: <FaHandshake size={iconsize} color="#6554C0" />,
         children: [
           {
-            key: "Company home",
-            label: "Company home",
-            icon: <FaHome size={submenuicon} color="#FF5630" />,
+            key: "Customer Support",
+            label: createLabel("Customer Support"),
+            icon: <FaComments size={submenuicon} color="#FFAB00" />,
+          },
+          {
+            key: "Sales Reports",
+            label: createLabel("Sales Reports"),
+            icon: <FaChartLine size={submenuicon} color="#00B8D9" />,
           },
         ],
       },
       {
         key: "Security",
-        label: "Security",
+        label: createLabel("Security"),
         icon: <FaShieldAlt size={iconsize} color="#FFAB00" />,
         children: [
           {
             key: "User Permissions",
-            label: "User Permissions",
+            label: createLabel("User Permissions"),
             icon: <FaLock size={submenuicon} color="#FFAB00" />,
           },
           {
             key: "Data Protection",
-            label: "Data Protection",
+            label: createLabel("Data Protection"),
             icon: <FaShieldAlt size={submenuicon} color="#00B8D9" />,
           },
         ],

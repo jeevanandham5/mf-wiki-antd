@@ -8,11 +8,13 @@ import {
   Button,
   Space,
   ConfigProvider,
+  EllipsisOutlined,
 } from "antd";
 import {
   AppstoreOutlined,
   HomeOutlined,
   MailOutlined,
+  MoreOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import { SearchOutlined, DownOutlined } from "@ant-design/icons";
@@ -25,7 +27,7 @@ import workspaces from "../../data/workspaces";
 import AddPageModal from "../../components/AddPageModal";
 import { useNavigate } from "react-router-dom";
 import { MenuDropdown } from "../Sidenav_rightsidepluspageicons/MenuDropdown/MenuDropdown";
-import { PageCreator } from "../Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
+import PageCreator from "../../components/Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
 import { useDocumentStore } from "../Sidenav_rightsidepluspageicons/store/documentStore";
 import toast from "react-hot-toast";
 const { Sider } = Layout;
@@ -90,7 +92,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
     );
   };
 
-  const generateMenuItems = (data, prefix) =>
+  const generateNewNavDataItems = (data, prefix) =>
     data.map((item, index) => ({
       key: `${prefix}-${index}`,
       icon: (
@@ -131,43 +133,36 @@ const SideNav = ({ onItemClick, currentPath }) => {
             justifyContent: "space-between",
           }}
         >
-          <div
-            className={styles.menuItemContainer}
-            onMouseEnter={() => handleItemHover(`${prefix}-${index}`)}
-            onMouseLeave={handleItemLeave}
-            style={{ display: "flex", alignItems: "center" }}
+          <span
+            className={styles.menuItemText}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              color: "inherit",
+              textDecoration: "none",
+              userSelect: "none",
+              transition: "none",
+              cursor: "pointer",
+              width: "100%",
+              borderRadius: "6px",
+              marginLeft: "0px",
+              fontSize: "14px",
+            }}
           >
-            <span
-              className={styles.menuItemText}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                color: "inherit",
-                textDecoration: "none",
-                userSelect: "none",
-                transition: "none",
-                cursor: "pointer",
-                width: "100%",
-                borderRadius: "6px",
-                marginLeft: "0px",
-                fontSize: "14px",
-              }}
-            >
-              {item.name}
-              <div
-                className={styles.pageIcons}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  outline: "none",
-                  position: "absolute",
-                  right: "5px",
-                }}
-              >
-                <MenuDropdown style={{ fontSize: "10px" }} />
-                <PageCreator style={{ fontSize: "10px" }} />
-              </div>
-            </span>
+            {item.label}
+          </span>
+          <div
+            className={styles.pageIcons}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              outline: "none",
+              position: "absolute",
+              right: "5px",
+            }}
+          >
+            <MenuDropdown style={{ fontSize: "10px" }} />
+            <PageCreator style={{ fontSize: "10px" }} />
           </div>
         </div>
       ),
@@ -222,8 +217,8 @@ const SideNav = ({ onItemClick, currentPath }) => {
       })),
     }));
 
-  const items2 = generateMenuItems(NavdataBottom, "bottom");
-  const topItems = generateMenuItems(NavDatatop, "top");
+  const items2 = generateNewNavDataItems(NavdataBottom, "bottom");
+  const topItems = generateNewNavDataItems(NavDatatop, "top");
 
   return (
     <Sider
@@ -241,33 +236,31 @@ const SideNav = ({ onItemClick, currentPath }) => {
         <div className={styles.profileHeader}>
           <div className={styles.titleBar}>
             <div style={{ background: "transparent" }}>
-              <div style={{ background: "transparent" }}>
-                <Space className={styles.titleText}>
-                  <Dropdown
-                    menu={{
-                      items: workspaces.map((workspace) => ({
-                        key: workspace.id,
-                        label: workspace.name,
-                      })),
+              <Space className={styles.titleText}>
+                <Dropdown
+                  menu={{
+                    items: workspaces.map((workspace) => ({
+                      key: workspace.id,
+                      label: workspace.name,
+                    })),
+                  }}
+                >
+                  <Button
+                    type="text"
+                    style={{
+                      height: "auto",
+                      fontWeight: "bold",
+                      display: "flex",
+                      alignItems: "center",
+                      marginLeft: "0px",
                     }}
                   >
-                    <Button
-                      type="text"
-                      style={{
-                        height: "auto",
-                        fontWeight: "bold",
-                        display: "flex",
-                        alignItems: "center",
-                        marginLeft: "0px",
-                        width: "240px",
-                      }}
-                    >
-                      <span className={styles.titleText}>Jayalakshmi</span>
-                      <DownOutlined style={{ marginLeft: "18px" }} />
-                    </Button>
-                  </Dropdown>
-                </Space>
-              </div>
+                    <span className={styles.titleText}>Jayalakshmi</span>
+                    <DownOutlined style={{ marginLeft: "18px" }} />
+                  </Button>
+                </Dropdown>
+                <MoreOutlined />
+              </Space>
             </div>
           </div>
         </div>
@@ -298,7 +291,6 @@ const SideNav = ({ onItemClick, currentPath }) => {
             style={{
               display: "none",
               marginBottom: "0px",
-
               alignItems: "center",
               textAlign: "left",
               fontSize: "12px",
@@ -324,7 +316,7 @@ const SideNav = ({ onItemClick, currentPath }) => {
                 height: "100%",
                 borderRight: 0,
                 paddingLeft: "0px",
-                ".ant-menu-submenu-arrow": { display: "none" },
+                ".ant-menu-submenu-arrow": { display: "flex" },
               }}
               items={items2}
             />

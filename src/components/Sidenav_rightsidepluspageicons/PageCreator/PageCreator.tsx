@@ -4,7 +4,7 @@ import { useDocumentStore } from "../store/documentStore";
 import { toast } from "react-hot-toast";
 import { TemplateMenu } from "./TemplateMenu";
 
-export function PageCreator() {
+export default function PageCreator() {
   const [isOpen, setIsOpen] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
