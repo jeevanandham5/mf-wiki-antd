@@ -36,7 +36,7 @@ export function MenuDropdown({
   isFavorite,
   onToggleSidePeek,
 }: MenuDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
   const { currentDocument, currentUser } = useDocumentStore();
 
@@ -88,7 +88,7 @@ export function MenuDropdown({
     <>
       <div className="relative" ref={menuRef}>
         <button
-          onClick={toggleMenu}
+          onClick={() => console.log("clicked")}
           className="p-2 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1"
           aria-label="More options"
         >
@@ -96,7 +96,7 @@ export function MenuDropdown({
         </button>
 
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+          <div className=" left-80 mt-2 w-80 bg-green-500 rounded-lg shadow-lg border border-gray-200 z-50">
             <div className="py-1">
               <MenuSection>
                 <MenuItem

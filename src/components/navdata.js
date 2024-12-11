@@ -6,8 +6,8 @@ import {
   MoreOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { Button, Modal } from "antd";
-import React from "react";
+import { Button, Dropdown, message, Modal, Space } from "antd";
+import React, { useState } from "react";
 import {
   FaHome,
   FaComments,
@@ -30,6 +30,12 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import PageCreator from "../components/Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
+import NewPage from "./newpage";
+import { MenuDropdown } from "./Sidenav_rightsidepluspageicons/MenuDropdown/MenuDropdown";
+
+import { useDocumentStore } from "./Sidenav_rightsidepluspageicons/store/documentStore";
+import { MoreHorizontal } from "lucide-react";
+import { moreHorizontalData } from "../data/Morehorizontaldata";
 // Define sizes for the icons
 const iconsize = 15; // Default size for main navigation icons
 const submenuicon = 15; // Size for submenu icons
@@ -232,7 +238,12 @@ export const NavdataBottom = [
     ],
   },
 ];
-
+const handleAddClick = (sectionId, buttonId, e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  setSelectedSection({ sectionId, buttonId });
+  setIsModalOpen(true);
+};
 const SectionActions = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
@@ -240,7 +251,22 @@ const SectionActions = () => {
     e.stopPropagation();
     setIsModalOpen(true);
   };
+  const [showPageCreator, setShowPageCreator] = useState(false);
+  const [showFeatures, setShowFeatures] = useState(false);
+  const handlePageCreatorClick = () => {
+    console.log("PageCreator clicked");
+    setShowFeatures((prev) => !prev);
+  };
 
+  const { currentDocument } = useDocumentStore();
+  const [isMenuDropdownOpen, setIsMenuDropdownOpen] = useState(false);
+
+  const handleMenuClick = (e) => {
+    message.info("Click on menu item.");
+    console.log("click", e);
+  };
+
+  const items = [...moreHorizontalData];
   return (
     <>
       <span
@@ -252,23 +278,54 @@ const SectionActions = () => {
           gap: "5px",
         }}
       >
-        <div role="button" onClick={() => console.log("More options clicked")}>
-          <EllipsisOutlined style={{ color: "#b0b0b0" }} />
+        <div className="flex items-center  gap-1">
+          <Dropdown menu={{ items }} trigger={["click"]}>
+            <Button icon={<MoreHorizontal />} type="text"></Button>
+          </Dropdown>
+          <Button
+            type="text"
+            icon={<PageCreator />}
+            onClick={() => setIsModalOpen(true)}
+          ></Button>
         </div>
-        <div role="button" onClick={handleAddClick}>
-          <FaPlus color="#b0b0b0" fontWeight={"normal"} fontSize={10} />
-        </div>
+        {showFeatures && <PageCreator />}
       </span>
-
-      <Modal
-        title="Create Page"
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        footer={null}
-        destroyOnClose
-      >
-        <PageCreator onClose={() => setIsModalOpen(false)} />
-      </Modal>
+      <div className="pt-14">
+        {currentDocument && (
+          <div className="max-w-5xl mx-auto p-8">
+            {currentDocument.type === "document" && (
+              <div className="min-h-[calc(100vh-8rem)] bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-3xl font-bold mb-4">
+                  {currentDocument.title}
+                </h1>
+                <div className="prose max-w-none">
+                  {currentDocument.content}
+                </div>
+              </div>
+            )}
+            {currentDocument.type === "table" && (
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-3xl font-bold mb-4">
+                  {currentDocument.title}
+                </h1>
+                <div className="overflow-x-auto">
+                  {/* Table content will be rendered here */}
+                </div>
+              </div>
+            )}
+            {currentDocument.type === "form" && (
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-3xl font-bold mb-4">
+                  {currentDocument.title}
+                </h1>
+                <div className="space-y-6">
+                  {/* Form content will be rendered here */}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </>
   );
 };

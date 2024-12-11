@@ -2,15 +2,6 @@ import { useState, useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { useDocumentStore } from "../../store/documentStore";
 
-interface UseMenuActionsProps {
-  documentTitle: string;
-  onRename: (newTitle: string) => void;
-  onToggleFavorite: () => void;
-  isFavorite: boolean;
-  onToggleSidePeek: () => void;
-  onClose: () => void;
-}
-
 export function useMenuActions({
   documentTitle,
   onRename,
@@ -73,7 +64,7 @@ export function useMenuActions({
   }, []);
 
   const handleMoveToLocation = useCallback(
-    (targetPath: string[]) => {
+    (targetPath) => {
       if (currentDocument) {
         moveDocument(currentDocument.id, targetPath);
         toast.success(`Moved to ${targetPath.join("/")}`);

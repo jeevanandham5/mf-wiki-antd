@@ -4,7 +4,7 @@ import { useDocumentStore } from "../store/documentStore";
 import { toast } from "react-hot-toast";
 import { TemplateMenu } from "./TemplateMenu";
 
-export default function PageCreator() {
+const PageCreator = ({ onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -61,13 +61,13 @@ export default function PageCreator() {
   };
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="relative" ref={menuRef} style={{ cursor: "pointer" }}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="p-2 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1"
         aria-label="Create new page"
       >
-        <Plus className="w-4 h-4 text-gray-400" />
+        <Plus className="w-4 h-4 text-yellow-400" />
       </button>
 
       {isOpen && (
@@ -118,4 +118,6 @@ export default function PageCreator() {
       )}
     </div>
   );
-}
+};
+
+export default PageCreator;
