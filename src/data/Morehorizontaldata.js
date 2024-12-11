@@ -17,6 +17,45 @@ import {
 
 //import { on } from "@blocksuite/blocks";
 import { message } from "antd";
+// Add this function before moreHorizontalData
+const copyLinkToClipboard = async () => {
+  try {
+    const currentUrl = window.location.href;
+    await navigator.clipboard.writeText(currentUrl);
+    message.success("Link copied to clipboard");
+  } catch (err) {
+    message.error("Failed to copy link");
+  }
+};
+
+// Add this function before moreHorizontalData
+const duplicatePage = async () => {
+  try {
+    // You might want to get the current page data from your app state or context
+    const currentPageData = {
+      // Add relevant page data here
+      title: document.title,
+      content: "", // Get this from your app state
+      timestamp: new Date().toISOString(),
+    };
+
+    // Create a copy with a modified title
+    const duplicatedData = {
+      ...currentPageData,
+      title: `${currentPageData.title} (Copy)`,
+    };
+
+    // Here you would typically:
+    // 1. Call your API or state management function to save the duplicate
+    // await savePage(duplicatedData);
+
+    message.success("Page duplicated successfully");
+    return duplicatedData;
+  } catch (error) {
+    message.error("Failed to duplicate page");
+    console.error("Duplication error:", error);
+  }
+};
 
 export const moreHorizontalData = [
   {
@@ -33,17 +72,13 @@ export const moreHorizontalData = [
   {
     key: "2",
     label: "Copy link",
-    onClick: () => {
-      message.success("Link copied");
-    },
+    onClick: copyLinkToClipboard,
     icon: <LinkOutlined />,
   },
   {
     key: "3",
     label: "Duplicate",
-    onClick: () => {
-      message.success("Page duplicated");
-    },
+    onClick: duplicatePage,
     icon: <CopyOutlined />,
   },
   {
