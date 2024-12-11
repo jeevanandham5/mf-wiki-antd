@@ -67,7 +67,7 @@ const PageCreator = ({ onClick }) => {
         className="p-2 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1"
         aria-label="Create new page"
       >
-        <Plus className="w-4 h-4 text-yellow-400" />
+        <Plus className="w-4 h-4 text-gray-400" />
       </button>
 
       {isOpen && (

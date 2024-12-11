@@ -23,7 +23,7 @@ export const moreHorizontalData = [
     key: "1",
     label: "Add to favorites",
     onClick: () => {
-      message.success("1st menu ja");
+      message.success("Added to favorites");
     },
     icon: <StarOutlined />,
   },
@@ -33,11 +33,17 @@ export const moreHorizontalData = [
   {
     key: "2",
     label: "Copy link",
+    onClick: () => {
+      message.success("Link copied");
+    },
     icon: <LinkOutlined />,
   },
   {
     key: "3",
     label: "Duplicate",
+    onClick: () => {
+      message.success("Page duplicated");
+    },
     icon: <CopyOutlined />,
   },
   {
@@ -46,11 +52,17 @@ export const moreHorizontalData = [
   {
     key: "4",
     label: "Rename",
+    onClick: (newName) => {
+      message.success(`Page renamed to ${newName}`);
+    },
     icon: <FormOutlined />,
   },
   {
     key: "5",
     label: "Move to",
+    onClick: (newLocation) => {
+      message.success(`Page moved to ${newLocation}`);
+    },
     icon: <ArrowRightOutlined />,
   },
 
@@ -60,16 +72,25 @@ export const moreHorizontalData = [
   {
     key: "7",
     label: "Turn into wiki",
+    onClick: () => {
+      message.success("Page turned into wiki");
+    },
     icon: <SwitcherOutlined />,
   },
   {
     key: "8",
     label: "Open in new tab",
+    onClick: () => {
+      message.success("Page opened in new tab");
+    },
     icon: <PlusOutlined />,
   },
   {
     key: "9",
     label: "Open in side peek",
+    onClick: () => {
+      message.success("Page opened in side peek");
+    },
     icon: <SwitcherOutlined />,
   },
   {
@@ -78,11 +99,17 @@ export const moreHorizontalData = [
   {
     key: "10",
     label: "Refresh",
+    onClick: () => {
+      message.success("Page refreshed");
+    },
     icon: <ReloadOutlined />,
   },
   {
     key: "11",
     label: "Close",
+    onClick: () => {
+      message.success("Page closed");
+    },
     icon: <CloseOutlined />,
   },
   {
@@ -91,6 +118,9 @@ export const moreHorizontalData = [
   {
     key: "12",
     label: "Delete",
+    onClick: () => {
+      message.success("Page deleted");
+    },
     icon: <DeleteOutlined />,
   },
 ];

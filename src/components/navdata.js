@@ -280,7 +280,12 @@ const SectionActions = () => {
       >
         <div className="flex items-center  gap-1">
           <Dropdown menu={{ items }} trigger={["click"]}>
-            <Button icon={<MoreHorizontal />} type="text"></Button>
+            <Button
+              icon={
+                <MoreHorizontal className="w-4 h-4 d-flex text-center text-gray-400" />
+              }
+              type="text"
+            ></Button>
           </Dropdown>
           <Button
             type="text"
