@@ -27,7 +27,9 @@ import {
   FaGraduationCap,
   FaMedkit,
   FaPlus,
+  FaStar,
 } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
 import PageCreator from "../components/Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
 import NewPage from "./newpage";
@@ -236,6 +238,14 @@ export const NavdataBottom = [
         icon: <FaShieldAlt size={submenuicon} color="#00B8D9" />,
       },
     ],
+  },
+  {
+    type: "divider",
+  },
+  {
+    key: "Favorites",
+    label: "Favorites",
+    icon: <FaStar size={submenuicon} color="#FFAB00" />,
   },
 ];
 const handleAddClick = (sectionId, buttonId, e) => {
@@ -589,6 +599,15 @@ export const newNavData = [
             icon: <FaShieldAlt size={submenuicon} color="#00B8D9" />,
           },
         ],
+      },
+      {
+        type: "divider",
+      },
+      {
+        key: "Favorites",
+        label: "Favorites",
+        icon: <FaStar size={submenuicon} color="#FFAB00" />,
+        children: [],
       },
     ],
   },
