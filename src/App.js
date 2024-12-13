@@ -7,7 +7,7 @@ import styles from "./components/styles/App.module.css";
 import { EditorProvider } from "./components/Blocksuite_editor/EditorProvider";
 
 import EditorContainer from "./components/Blocksuite_editor/EditorContainer";
-import NewPage from "./components/NewPage";
+import NewPage from "./components/Sidenavbar/NewPage";
 
 const App = () => {
   console.log("hello world");

@@ -32,7 +32,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import PageCreator from "../components/Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
-import NewPage, { newPageData } from "./NewPage";
+import NewPage, { newPageData } from "./Sidenavbar/NewPage";
 import { MenuDropdown } from "./Sidenav_rightsidepluspageicons/MenuDropdown/MenuDropdown";
 
 import { useDocumentStore } from "./Sidenav_rightsidepluspageicons/store/documentStore";
@@ -278,7 +278,7 @@ const SectionActions = () => {
   };
 
   const items = [...moreHorizontalData];
-  const items2 = [...newPageData];
+  const item = [...newPageData];
   return (
     <>
       <span
@@ -291,21 +291,23 @@ const SectionActions = () => {
         }}
       >
         <div className="flex items-center  gap-1">
-          <Dropdown menu={{ items }} trigger={["click"]}>
-            <Button
-              icon={
-                <MoreHorizontal className="w-4 h-4 d-flex text-center text-gray-400" />
-              }
-              type="text"
-            ></Button>
-          </Dropdown>
-          <Dropdown menu={{ items2 }} trigger={["click"]}>
-            <Button
-              type="text"
-              icon={<PageCreator />}
-              onClick={() => setIsModalOpen(true)}
-            ></Button>
-          </Dropdown>
+          <>
+            <Dropdown menu={{ items }} trigger={["click"]}>
+              <Button
+                icon={
+                  <MoreHorizontal className="w-4 h-4 d-flex text-center text-gray-400" />
+                }
+                type="text"
+              ></Button>
+            </Dropdown>
+            <Dropdown menu={{ item }} trigger={["click"]}>
+              <Button
+                type="text"
+                icon={<PageCreator />}
+                onClick={() => setIsModalOpen(true)}
+              ></Button>
+            </Dropdown>
+          </>
         </div>
         {showFeatures && <PageCreator />}
       </span>

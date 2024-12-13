@@ -30,11 +30,11 @@ import {
   PlusOutlined,
   DragOutlined,
 } from "@ant-design/icons";
-import styles from "./styles/NewPage.module.css";
-import EditorContainer from "./Blocksuite_editor/EditorContainer";
-import { EditorProvider } from "./Blocksuite_editor/EditorProvider";
+import styles from "../styles/NewPage.module.css";
+import EditorContainer from "../Blocksuite_editor/EditorContainer";
+import { EditorProvider } from "../Blocksuite_editor/EditorProvider";
 
-import { moreHorizontalData } from "../data/Morehorizontaldata";
+import { moreHorizontalData } from "../../data/Morehorizontaldata";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { v4 as uuidv4 } from "uuid";
 
@@ -90,7 +90,7 @@ const NewPage = () => {
     const currentUrl = window.location.href;
     const title = pageTitle;
 
-    const shareItems = [
+    const shareLinks = [
       {
         key: "copy",
         label: "Copy Link",
@@ -164,7 +164,7 @@ const NewPage = () => {
       },
     ];
 
-    return <Menu items={shareItems} />;
+    return <Menu items={shareLinks} />;
   };
 
   const handleComment = () => {
@@ -190,11 +190,11 @@ const NewPage = () => {
   };
 
   const handleMore = () => {
-    const moreItems = [...moreHorizontalData];
+    const items = [...moreHorizontalData];
 
     return (
       <Menu
-        items={moreItems}
+        items={items}
         onClick={({ key }) => {
           switch (key) {
             case "duplicate":
@@ -257,7 +257,11 @@ const NewPage = () => {
           </div>
 
           <div className={styles.rightSection}>
-            <Dropdown menu={{ items: handleShare() }} trigger={["click"]}>
+            <Dropdown
+              overlay={handleShare()}
+              trigger={["click"]}
+              getPopupContainer={(triggerNode) => triggerNode.parentNode}
+            >
               <Button icon={<ShareAltOutlined />}>Share</Button>
             </Dropdown>
             <Tooltip title="Comments">
@@ -275,11 +279,13 @@ const NewPage = () => {
               />
             </Tooltip>
 
-            <Tooltip title="More">
-              <Dropdown menu={{ items: handleMore() }} trigger={["click"]}>
-                <Button icon={<MoreOutlined />} type="text" />
-              </Dropdown>
-            </Tooltip>
+            <Dropdown
+              overlay={handleMore()}
+              trigger={["click"]}
+              getPopupContainer={(triggerNode) => triggerNode.parentNode}
+            >
+              <Button icon={<MoreOutlined />} type="text" />
+            </Dropdown>
           </div>
         </header>
         <div className={styles.editorContent}>

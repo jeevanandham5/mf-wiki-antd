@@ -1,10 +1,10 @@
 .editorContainer {
   width: 100%;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  background-color: white;
+  border: 1px solid transparent;
   border-radius: 4px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  box-shadow: 0 2px 4px transparent;
 }
 
 /* Style for the editor's content area */
