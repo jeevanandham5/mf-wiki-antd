@@ -32,12 +32,13 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import PageCreator from "../components/Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
-import NewPage from "./newpage";
+import NewPage, { newPageData } from "./NewPage";
 import { MenuDropdown } from "./Sidenav_rightsidepluspageicons/MenuDropdown/MenuDropdown";
 
 import { useDocumentStore } from "./Sidenav_rightsidepluspageicons/store/documentStore";
 import { MoreHorizontal } from "lucide-react";
 import { moreHorizontalData } from "../data/Morehorizontaldata";
+
 // Define sizes for the icons
 const iconsize = 15; // Default size for main navigation icons
 const submenuicon = 15; // Size for submenu icons
@@ -277,6 +278,7 @@ const SectionActions = () => {
   };
 
   const items = [...moreHorizontalData];
+  const items2 = [...newPageData];
   return (
     <>
       <span
@@ -297,11 +299,13 @@ const SectionActions = () => {
               type="text"
             ></Button>
           </Dropdown>
-          <Button
-            type="text"
-            icon={<PageCreator />}
-            onClick={() => setIsModalOpen(true)}
-          ></Button>
+          <Dropdown menu={{ items2 }} trigger={["click"]}>
+            <Button
+              type="text"
+              icon={<PageCreator />}
+              onClick={() => setIsModalOpen(true)}
+            ></Button>
+          </Dropdown>
         </div>
         {showFeatures && <PageCreator />}
       </span>

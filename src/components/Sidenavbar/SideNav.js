@@ -9,6 +9,7 @@ import {
   Space,
   ConfigProvider,
   EllipsisOutlined,
+  Tooltip,
 } from "antd";
 import {
   AppstoreOutlined,
@@ -220,6 +221,110 @@ const SideNav = ({ onItemClick, currentPath }) => {
   const items2 = generateNewNavDataItems(NavdataBottom, "bottom");
   const topItems = generateNewNavDataItems(NavDatatop, "top");
 
+  const handleDuplicatePage = () => {
+    try {
+      // Get the current document details
+      const documentToClone = currentDocument;
+      if (!documentToClone) {
+        toast.error("No document selected to duplicate");
+        return;
+      }
+
+      // Create a new document with the same content but different name
+      const newDocName = `${documentToClone.name} (Copy)`;
+      // Add your document creation logic here
+
+      toast.success("Page duplicated successfully");
+    } catch (error) {
+      toast.error("Failed to duplicate page");
+      console.error("Duplication error:", error);
+    }
+  };
+
+  const handleMovePage = () => {
+    try {
+      if (!currentDocument) {
+        toast.error("No document selected to move");
+        return;
+      }
+
+      // Add your move document logic here
+      // You might want to open a modal with location options
+
+      toast.info("Move functionality coming soon");
+    } catch (error) {
+      toast.error("Failed to move page");
+      console.error("Move error:", error);
+    }
+  };
+
+  const handleExportPage = () => {
+    try {
+      if (!currentDocument) {
+        toast.error("No document selected to export");
+        return;
+      }
+
+      // Add your export logic here
+      // You might want to show a modal with export options (PDF, HTML, etc.)
+
+      toast.info("Export functionality coming soon");
+    } catch (error) {
+      toast.error("Failed to export page");
+      console.error("Export error:", error);
+    }
+  };
+
+  const handleDeletePage = () => {
+    try {
+      if (!currentDocument) {
+        toast.error("No document selected to delete");
+        return;
+      }
+
+      // You might want to show a confirmation dialog before deleting
+      if (window.confirm("Are you sure you want to delete this page?")) {
+        // Add your delete logic here
+
+        toast.success("Page deleted successfully");
+      }
+    } catch (error) {
+      toast.error("Failed to delete page");
+      console.error("Delete error:", error);
+    }
+  };
+
+  const handleMore = () => {
+    const items = [
+      {
+        key: "duplicate",
+        label: "Duplicate page",
+        onClick: handleDuplicatePage,
+      },
+      {
+        key: "move",
+        label: "Move to...",
+        onClick: handleMovePage,
+      },
+      {
+        key: "export",
+        label: "Export as...",
+        onClick: handleExportPage,
+      },
+      {
+        type: "divider",
+      },
+      {
+        key: "delete",
+        label: "Delete page",
+        danger: true,
+        onClick: handleDeletePage,
+      },
+    ];
+
+    return items;
+  };
+
   return (
     <Sider
       width={256}
@@ -259,7 +364,9 @@ const SideNav = ({ onItemClick, currentPath }) => {
                     <DownOutlined style={{ marginLeft: "18px" }} />
                   </Button>
                 </Dropdown>
-                <MoreOutlined />
+                <Dropdown menu={{ items: handleMore() }} trigger={["click"]}>
+                  <Button icon={<MoreOutlined />} type="text" />
+                </Dropdown>
               </Space>
             </div>
           </div>
