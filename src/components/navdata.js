@@ -278,7 +278,7 @@ const SectionActions = () => {
   };
 
   const items = [...moreHorizontalData];
-  const item = [...newPageData];
+  const itemss = [...newPageData];
   return (
     <>
       <span
@@ -300,7 +300,7 @@ const SectionActions = () => {
                 type="text"
               ></Button>
             </Dropdown>
-            <Dropdown menu={{ item }} trigger={["click"]}>
+            <Dropdown menu={{ itemss }} trigger={["click"]}>
               <Button
                 type="text"
                 icon={<PageCreator />}
