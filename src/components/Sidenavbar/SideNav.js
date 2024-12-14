@@ -18,6 +18,13 @@ import {
   MoreOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import {
+  CalendarOutlined,
+  SwapOutlined,
+  ClockCircleOutlined,
+  UserSwitchOutlined,
+} from "@ant-design/icons";
+import { FaTasks } from "react-icons/fa";
 import { SearchOutlined, DownOutlined } from "@ant-design/icons";
 import { FaEllipsisH } from "react-icons/fa";
 import { IoIosAdd } from "react-icons/io";
@@ -31,6 +38,8 @@ import { MenuDropdown } from "../Sidenav_rightsidepluspageicons/MenuDropdown/Men
 import PageCreator from "../../components/Sidenav_rightsidepluspageicons/PageCreator/PageCreator";
 import { useDocumentStore } from "../Sidenav_rightsidepluspageicons/store/documentStore";
 import toast from "react-hot-toast";
+import Calendar from "../Sidenavbar/Calendar";
+import RecentlyVisited from "../Sidenavbar/RecentlyVisited";
 const { Sider } = Layout;
 
 const SideNav = ({ onItemClick, currentPath }) => {
@@ -54,6 +63,12 @@ const SideNav = ({ onItemClick, currentPath }) => {
       },
     },
   };
+  const [accountType, setAccountType] = useState("personal");
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [recentlyVisited, setRecentlyVisited] = useState([]);
+  const MAX_RECENT_ITEMS = 10; // Maximum number of items to store
+  const [showRecentlyVisited, setShowRecentlyVisited] = useState(false);
+
   const handleItemHover = (sectionId) => {
     setHoveredSection(sectionId);
   };
@@ -294,35 +309,105 @@ const SideNav = ({ onItemClick, currentPath }) => {
     }
   };
 
+  const handleSwitchAccount = (newType) => {
+    setAccountType(newType);
+    toast.success(`Switched to ${newType} account`);
+    // Add any additional logic needed when switching accounts
+  };
+
+  const addToRecentlyVisited = (page) => {
+    setRecentlyVisited((prevRecent) => {
+      // Remove the page if it already exists (to avoid duplicates)
+      const filteredRecent = prevRecent.filter((item) => item.id !== page.id);
+
+      // Add the new page at the beginning
+      const newRecent = [page, ...filteredRecent];
+
+      // Keep only the most recent MAX_RECENT_ITEMS
+      const trimmedRecent = newRecent.slice(0, MAX_RECENT_ITEMS);
+
+      // Store in localStorage
+      localStorage.setItem("recentlyVisited", JSON.stringify(trimmedRecent));
+
+      return trimmedRecent;
+    });
+  };
+
+  const loadRecentlyVisited = () => {
+    try {
+      const stored = localStorage.getItem("recentlyVisited");
+      if (stored) {
+        setRecentlyVisited(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.error("Error loading recently visited pages:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadRecentlyVisited();
+  }, []);
+
   const handleMore = () => {
     const items = [
       {
-        key: "duplicate",
-        label: "Duplicate page",
-        onClick: handleDuplicatePage,
+        key: "myTasks",
+        label: "My Tasks",
+        icon: <FaTasks />,
+        onClick: () => navigate("/my-tasks"),
       },
       {
-        key: "move",
-        label: "Move to...",
-        onClick: handleMovePage,
+        key: "calendar",
+        label: "Calendar",
+        icon: <CalendarOutlined />,
+        onClick: () => setShowCalendar(!showCalendar),
       },
       {
-        key: "export",
-        label: "Export as...",
-        onClick: handleExportPage,
+        key: "recentlyVisited",
+        label: "Recently visited",
+        icon: <ClockCircleOutlined />,
+        onClick: () => {
+          setShowRecentlyVisited(true);
+        },
       },
       {
         type: "divider",
       },
       {
-        key: "delete",
-        label: "Delete page",
-        danger: true,
-        onClick: handleDeletePage,
+        key: "switchAccount",
+        label:
+          accountType === "personal"
+            ? "Switch to official account"
+            : "Switch to personal account",
+        icon:
+          accountType === "personal" ? (
+            <UserSwitchOutlined />
+          ) : (
+            <SwapOutlined />
+          ),
+        onClick: () =>
+          handleSwitchAccount(
+            accountType === "personal" ? "official" : "personal"
+          ),
       },
     ];
 
     return items;
+  };
+
+  const trackPageVisit = (page) => {
+    const pageData = {
+      id: page.id,
+      title: page.title,
+      path: page.path,
+      timestamp: new Date().toISOString(),
+    };
+    addToRecentlyVisited(pageData);
+  };
+
+  const handleNavigation = (page) => {
+    trackPageVisit(page);
+    navigate(page.path);
   };
 
   return (
@@ -383,7 +468,44 @@ const SideNav = ({ onItemClick, currentPath }) => {
           />
         </div>
         <ConfigProvider theme={{ compact: true }}>
-          <Menu defaultSelectedKeys={["1"]} mode="inline" items={newNavData} />
+          <Menu
+            defaultSelectedKeys={["1"]}
+            mode="inline"
+            items={newNavData.map((item) => ({
+              ...item,
+              label: (
+                <div
+                  className={styles.menuItem}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span
+                    className={styles.menuItemText}
+                    style={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      flex: "1",
+                      marginRight: "8px", // Add space between text and icons
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                  {item.icons && (
+                    <div
+                      className={styles.menuItemIcons}
+                      style={{ flexShrink: 0 }}
+                    >
+                      {item.icons}
+                    </div>
+                  )}
+                </div>
+              ),
+            }))}
+          />
         </ConfigProvider>
         {/* Top Navigation Menu */}
         <ConfigProvider theme={customtheme}>
@@ -431,7 +553,85 @@ const SideNav = ({ onItemClick, currentPath }) => {
         </div>
       </div>
 
-      {/* Add Page Modal */}
+      {/* Add Calendar Modal/Popup */}
+      {showCalendar && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 1000,
+            background: "white",
+            padding: "20px",
+            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+            borderRadius: "8px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <h3>Calendar</h3>
+            <Button type="text" onClick={() => setShowCalendar(false)}>
+              ×
+            </Button>
+          </div>
+          <Calendar />
+        </div>
+      )}
+
+      {showRecentlyVisited && (
+        <div
+          style={{
+            position: "absolute",
+            top: "10%",
+            left: "70%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 1000,
+            background: "white",
+            padding: "20px",
+            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+            borderRadius: "8px",
+            maxHeight: "300px",
+            overflowY: "auto",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "10px",
+            }}
+          >
+            <h3>Recently Visited</h3>
+            <Button type="text" onClick={() => setShowRecentlyVisited(false)}>
+              ×
+            </Button>
+          </div>
+          <div>
+            {recentlyVisited.map((page) => (
+              <div
+                key={page.id}
+                onClick={() => handleNavigation(page)}
+                style={{
+                  cursor: "pointer",
+                  padding: "8px",
+                  "&:hover": {
+                    backgroundColor: "#f5f5f5",
+                  },
+                }}
+              >
+                {page.title}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <AddPageModal
         isVisible={isModalOpen}
         onClose={() => setIsModalOpen(false)}
