@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StarOutlined,
   LinkOutlined,
@@ -6,17 +6,15 @@ import {
   FormOutlined,
   ArrowRightOutlined,
   DeleteOutlined,
-  RefreshCwOutlined,
-  ExternalLinkOutlined,
-  CloseOutlined,
-  EditOutlined,
-  SwitcherOutlined,
   ReloadOutlined,
   PlusOutlined,
+  SwitcherOutlined,
 } from "@ant-design/icons";
+import { Modal, Input, Select, message } from "antd";
+import { createRoot } from "react-dom/client";
 
 //import { on } from "@blocksuite/blocks";
-import { message } from "antd";
+
 // Add this function before moreHorizontalData
 const copyLinkToClipboard = async () => {
   try {
@@ -57,62 +55,49 @@ const duplicatePage = async () => {
   }
 };
 
-const handleRename = async (oldName, newName) => {
-  try {
-    // Here you would typically:
-    // 1. Validate the new name
-    if (!newName || newName.trim() === "") {
-      throw new Error("New name cannot be empty");
-    }
+const handleRename = async (oldName) => {
+  const [newName, setNewName] = useState("");
 
-    // 2. Call your API or state management function to update the name
-    // await updatePageName(oldName, newName);
-
-    message.success(`Page renamed from "${oldName}" to "${newName}"`);
-    return true;
-  } catch (error) {
-    message.error(`Failed to rename page: ${error.message}`);
-    return false;
-  }
+  Modal.confirm({
+    title: "Rename Page",
+    content: (
+      <Input
+        defaultValue={oldName}
+        onChange={(e) => setNewName(e.target.value)}
+      />
+    ),
+    onOk: async () => {
+      if (!newName.trim()) {
+        message.error("New name cannot be empty");
+        return;
+      }
+      message.success(`Page renamed to "${newName}"`);
+    },
+  });
 };
 
 // Add this function before moreHorizontalData
 const handleMoveTo = async () => {
-  try {
-    // This would typically come from your app's state/backend
-    const availableSections = [
-      { id: "1", name: "Personal Notes", path: "/personal" },
-      { id: "2", name: "Work Projects", path: "/work" },
-      { id: "3", name: "Archive", path: "/archive" },
-      { id: "4", name: "Shared Documents", path: "/shared" },
-    ];
+  const availableSections = [
+    { id: "1", name: "Personal Notes", path: "/personal" },
+    { id: "2", name: "Work Projects", path: "/work" },
+  ];
 
-    // In a real implementation, you'd use a proper modal/dropdown component
-    // This is just for demonstration
-    const selection = window.prompt(
-      "Select destination (enter number):\n" +
-        availableSections
-          .map((section, index) => `${index + 1}. ${section.name}`)
-          .join("\n")
-    );
-
-    const selectedIndex = parseInt(selection) - 1;
-    if (selectedIndex >= 0 && selectedIndex < availableSections.length) {
-      const destination = availableSections[selectedIndex];
-
-      // Here you would typically:
-      // 1. Call your API to move the page
-      // await movePage(currentPageId, destination.path);
-
-      message.success(`Page moved to ${destination.name}`);
-      return destination.path;
-    } else {
-      throw new Error("Invalid selection");
-    }
-  } catch (error) {
-    message.error("Failed to move page");
-    console.error("Move error:", error);
-  }
+  Modal.confirm({
+    title: "Move Page To",
+    content: (
+      <Select style={{ width: "100%" }}>
+        {availableSections.map((section) => (
+          <Select.Option key={section.id} value={section.path}>
+            {section.name}
+          </Select.Option>
+        ))}
+      </Select>
+    ),
+    onOk: async (selectedPath) => {
+      message.success(`Page moved to ${selectedPath}`);
+    },
+  });
 };
 
 // Add this function before moreHorizontalData
@@ -231,22 +216,15 @@ const handleRefresh = async () => {
 
 // Add this function before moreHorizontalData
 const handleDeletePage = async () => {
-  try {
-    // Confirm deletion with the user
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this page?"
-    );
-    if (!confirmDelete) return;
-
-    // Here you would typically:
-    // 1. Call your API or state management function to delete the page
-    // await deletePage(currentPageId);
-
-    message.success("Page deleted successfully");
-  } catch (error) {
-    message.error("Failed to delete page");
-    console.error("Delete error:", error);
-  }
+  Modal.confirm({
+    title: "Delete Page",
+    content: "Are you sure you want to delete this page?",
+    okText: "Delete",
+    okType: "danger",
+    onOk: async () => {
+      message.success("Page deleted successfully");
+    },
+  });
 };
 
 // Add this function before moreHorizontalData
@@ -283,8 +261,13 @@ const handleAddToFavorites = () => {
 
 // Move this helper function before moreHorizontalData
 const isPageFavorited = () => {
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-  return favorites.some((fav) => fav.id === window.location.pathname);
+  try {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    return favorites.some((fav) => fav.id === window.location.pathname);
+  } catch (error) {
+    console.error("Error reading favorites:", error);
+    return false;
+  }
 };
 
 export const moreHorizontalData = [
@@ -319,14 +302,7 @@ export const moreHorizontalData = [
   {
     key: "4",
     label: "Rename",
-    onClick: () => {
-      // You might want to get the current page name from your app state
-      const oldName = document.title; // or get it from your app state
-      const newName = prompt("Enter new name:", oldName);
-      if (newName) {
-        handleRename(oldName, newName);
-      }
-    },
+    onClick: handleRename,
     icon: <FormOutlined />,
   },
   {

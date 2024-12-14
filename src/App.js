@@ -20,7 +20,7 @@ const App = () => {
             <div className={styles.contentWrapper}>
               <SideNav />
               <Routes>
-                <Route path="/" element={<NewPage />} />
+                <Route path="/" element={<EditorContainer />} />
                 <Route path="/:section" element={<EditorContainer />} />
                 <Route
                   path="/:section/:subsection"

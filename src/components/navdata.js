@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Dropdown, message, Modal, Space } from "antd";
 import React, { useState } from "react";
+
 import {
   FaHome,
   FaComments,
@@ -300,14 +301,22 @@ const SectionActions = () => {
                 type="text"
               ></Button>
             </Dropdown>
-            <Dropdown menu={{ itemss }} trigger={["click"]}>
-              <Button
-                type="text"
-                icon={<PageCreator />}
-                onClick={() => setIsModalOpen(true)}
-              ></Button>
-            </Dropdown>
+            <Button
+              type="text"
+              icon={<PageCreator />}
+              onClick={() => setIsModalOpen(true)}
+            ></Button>
           </>
+          <Modal
+            title="New Page"
+            open={isModalOpen}
+            onCancel={() => setIsModalOpen(false)}
+            footer={null}
+            width="80%"
+            height="80%"
+          >
+            <NewPage />
+          </Modal>
         </div>
         {showFeatures && <PageCreator />}
       </span>
