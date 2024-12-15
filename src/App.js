@@ -1,11 +1,13 @@
 //wiki-app
 import React from "react";
+import "./index.css";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
-import SideNav from "./components/SideNav";
+import SideNav from "./components/Sidenavbar/SideNav";
 import styles from "./components/styles/App.module.css";
+import { EditorProvider } from "./components/Blocksuite_editor/EditorProvider";
 
-import { EditorProvider } from "./components/Blocksuite editor/EditorProvider";
-import EditorContainer from "./components/Blocksuite editor/EditorContainer";
+import EditorContainer from "./components/Blocksuite_editor/EditorContainer";
+import NewPage from "./components/Sidenavbar/NewPage";
 
 const App = () => {
   console.log("hello world");

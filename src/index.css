@@ -10,7 +10,7 @@ body {
   color: #2f3437; /* Dark gray color for text */
   margin: 0;
   /* Padding around the content */
-  background-color: #fafafa;
+  background-color: transparent;
 }
 
 code {
@@ -24,7 +24,7 @@ code {
 
 .doc-item.active,
 .doc-item:hover {
-  background-color: #f0f0f0;
+  background-color: transparent;
 }
 
 .top-bar {
@@ -38,4 +38,42 @@ code {
 
 .main-content {
   flex: 1;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+page-editor {
+  background-color: transparent !important;
+}
+.affine-page-root-block-container {
+  max-width: 100% !important;
+  height: 100%;
+  margin: 0;
+  background-color: transparent !important;
+}
+.page-editor-container .affine-page-root {
+  height: 100%;
+  background-color: transparent;
+}
+
+doc-meta-tags {
+  background-color: transparent !important;
+  max-width: 80% !important;
+  margin-left: 0 !important;
+}
+.doc-title-container {
+  max-width: 100% !important;
+  background-color: transparent !important;
+}
+div.meta-data-expanded.caret-ignore {
+  width: 100px;
+  background-color: aqua !important;
+}
+div.meta-data-expanded-title.caret-ignore {
+  background-color: aqua !important;
+}
+.meta-data-expanded.caret-ignore {
+  background-color: aqua !important;
 }
